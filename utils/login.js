@@ -34,13 +34,16 @@ class login {
 
   async wxLogin(callback) {
     const wxa = wx.async(['login'])
+    const accountInfo = wx.getAccountInfoSync();
+    const appid = accountInfo.miniProgram.appId;
     try {
       const res1 = await wxa.login()
       wx.request({
         url: config.api_base_url + 'login/wxLogin',
         method: 'GET',
         data: {
-          code: res1.code
+          code: res1.code,
+          appid: appid
         },
         success: (res) => {
           const result = res.data.result

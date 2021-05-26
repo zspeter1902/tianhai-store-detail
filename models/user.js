@@ -177,6 +177,12 @@ class userModel extends HTTP {
       data
     })
   }
+  // 获取公告列表
+  getNotice() {
+    return this.request({
+      url: 'shop/getNotice'
+    })
+  }
 }
 export {
   userModel

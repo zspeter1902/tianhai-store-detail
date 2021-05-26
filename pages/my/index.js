@@ -20,6 +20,7 @@ Page({
     secondId: null,
     isSecondBind: false,
     dialogShow: false,
+    dialogShowMessage: false,
     formData: {},
     rules: [{
       name: 'name',
@@ -28,7 +29,8 @@ Page({
       name: 'code',
       rules: [{required: true, message: '请输入邀请码！'}]
     }],
-    phone: '13865970587'
+    phone: '13865970587',
+    message: {}
   },
 
   /**
@@ -36,6 +38,7 @@ Page({
    */
   onLoad: function (options) {
     this.getBindInfo()
+    this.getMessage()
     const userInfo = wx.getStorageSync('userInfo')
     if (userInfo) {
       this.setData({
@@ -47,6 +50,24 @@ Page({
         loading: false
       })
     }, 1500)
+  },
+  getMessage() {
+    const token = wx.getStorageSync('token');
+    if (!token) {
+      return
+    }
+    user.getNotice().then(res => {
+      const message = res.data[0]
+      this.setData({
+        message: message
+      })
+      if (!!message.status) {
+        this.setData({
+          loading: false
+        })
+        this.onOpenMessage()
+      }
+    })
   },
   getBindInfo() {
     const token = wx.getStorageSync('token');
@@ -96,6 +117,7 @@ Page({
     wx.getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: res => {
+        console.log(res)
         wx.setStorageSync('userInfo', res.userInfo)
         this.setData({
           loading: true,
@@ -125,6 +147,16 @@ Page({
   onClose() {
     this.setData({
       dialogShow: false
+    })
+  },
+  onOpenMessage() {
+    this.setData({
+      dialogShowMessage: true
+    })
+  },
+  onCloseMessage() {
+    this.setData({
+      dialogShowMessage: false
     })
   },
   formInputChange(e) {

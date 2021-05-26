@@ -95,3 +95,16 @@
     </view>
   </view>
 </mp-dialog>
+<!-- 通知 -->
+<mp-dialog ext-class="dialog" show="{{dialogShowMessage}}" mask-closable="{{false}}">
+  <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill" />
+  <view class="dialog-container">
+    <view class="dialog-header text-center">
+      <text class="dialog-title">通知</text>
+      <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onCloseMessage"></mp-icon>
+    </view>
+    <view class="dialog-message">
+      <text class="text">{{message.content}}</text>
+    </view>
+  </view>
+</mp-dialog>

@@ -26,7 +26,7 @@ Component({
     listArr: {
       promote_balance: '资金总额',
       promote_consume: '今日消耗',
-      promote_bid: '推荐出价',
+      promote_sugbid: '推荐出价',
       promote_clickCost: '点击成本',
       promote_exposure: '推广曝光',
       promote_clickRate: '推广进店率',
@@ -267,9 +267,25 @@ Component({
         });
       })
     },
-    onClose() {
+    onClose(e) {
       this.setData({
         dialogShow: false
+      })
+      if (!!e) {
+        this.clearFormData()
+      }
+    },
+    onCloseCallback(e) {
+      this.clearFormData()
+    },
+    clearFormData() {
+      const formData = this.data.formData
+      this.setData({
+        [`formData.customList`]: [
+          !!formData['first_bid'] || true,
+          !!formData['second_startTime'] || false,
+          !!formData['third_startTime'] || false
+        ]
       })
     },
     formInputChange(e) {
@@ -306,6 +322,7 @@ Component({
     },
     onDelete(e) {
       const {index} = e.currentTarget.dataset
+      const types = this.data.types
       this.setData({
         [`formData.customList[${index}]`]: false
       })
@@ -327,6 +344,7 @@ Component({
     },
     setExtension() {
       const formData = this.data.formData
+      const types = this.data.types
       const data = Object.assign({}, formData)
       if (this.data.mtSetting.account_id === formData.account_id) {
         this.setData({
@@ -337,7 +355,15 @@ Component({
           elemeSetting: formData
         })
       }
+      for (let i = 0; i < formData.customList.length; i++) {
+        if (!formData.customList[i]) {
+          delete data[`${types[i]}_startTime`]
+          delete data[`${types[i]}_endTime`]
+          delete data[`${types[i]}_bid`]
+        }
+      }
       delete data.customList
+
       Login.checkLogin(res => {
         user.setExtension(data).then(res => {
           this.onClose()
