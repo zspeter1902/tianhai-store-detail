@@ -27,11 +27,15 @@ Component({
     lists2: [],
     dialogShow: false,
     formData: {
-      time: null
+      time: null,
+      mealTime: null
     },
     rules: [{
       name: 'time',
-      rules: [{required: true, message: '请输入时间'}, {range: [5, 20], message: '值在5-20之间'}],
+      rules: [{required: true, message: '请输入时间'}, {range: [1, 20], message: '值在1-20之间'}],
+    }, {
+      name: 'mealTime',
+      rules: [{required: true, message: '请输入时间'}, {range: [40, 60], message: '值在40-60之间'}],
     }],
     realTime: null //实时数据对象
   },
@@ -82,7 +86,8 @@ Component({
             lists: res.data.mt,
             lists2: res.data.eleme,
             switch: !!Number(res.status),
-            'formData.time': res.meal_time
+            'formData.time': res.meal_time,
+            'formData.mealTime': res.meal_time_ad
           })
         })
       }, false)
@@ -110,9 +115,9 @@ Component({
         complete: ()=>{}
       });
     },
-    setAutoList(status, time) {
+    setAutoList(status, time, mealTime) {
       Login.checkLogin(res => {
-        user.setShopTime(this.data.shopName, +status, time).then(res => {
+        user.setShopTime(this.data.shopName, +status, time, mealTime).then(res => {
           this.setData({
             switch: status
           })
@@ -158,7 +163,8 @@ Component({
             })
           }
         } else {
-          this.setAutoList(+this.data.switch, this.data.formData.time)
+          const formData = this.data.formData
+          this.setAutoList(+this.data.switch, formData.time, formData.mealTime)
           this.setData({
             dialogShow: false
           })

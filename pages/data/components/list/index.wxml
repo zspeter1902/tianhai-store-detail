@@ -27,9 +27,12 @@
       <text class="dialog-title">时间设置</text>
       <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onClose"></mp-icon>
     </view>
-    <view class="dialog-content">
-      <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <input type="number" bindinput="formInputChange" data-field="time" class="dialog-input" placeholder="5-20分钟" value="{{formData.time}}" />
+    <view class="dialog-content ovh">
+      <mp-form id="form" class="dialog-form" rules="{{rules}}" models="{{formData}}">
+        <view class="form-label text-left">即时订单时间</view>
+        <input type="number" bindinput="formInputChange" data-field="time" class="dialog-input" placeholder="1-20分钟" value="{{formData.time}}" />
+        <view class="form-label text-left">预订单时间</view>
+        <input type="number" bindinput="formInputChange" data-field="mealTime" class="dialog-input" placeholder="40-60分钟" value="{{formData.mealTime}}" />
       </mp-form>
       <button class="dialog-submit" bindtap="formSubmit">确定</button>
     </view>
