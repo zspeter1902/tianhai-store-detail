@@ -11,7 +11,7 @@
         </view>
       </view>
       <view class="text-center setting" data-type="lists" bind:tap="onOpen">
-        <mp-icon class="icon-setting" icon="setting" color="#CA6FFF" size="{{16}}"></mp-icon>
+        <mp-icon class="icon-setting" icon="setting" color="#4037CF" size="{{18}}"></mp-icon>
         <text>设置</text>
       </view>
     </view>
@@ -27,7 +27,7 @@
         </view>
       </view>
       <view class="text-center setting" data-type="lists2" bind:tap="onOpen">
-        <mp-icon class="icon-setting" icon="setting" color="#CA6FFF" size="{{16}}"></mp-icon>
+        <mp-icon class="icon-setting" icon="setting" color="#4037CF" size="{{18}}"></mp-icon>
         <text>设置</text>
       </view>
     </view>
@@ -35,7 +35,7 @@
 </view>
 <!-- 弹出框 dialogShow-->
 <mp-dialog ext-class="dialog" show="{{dialogShow}}" bindclose="onCloseCallback">
-  <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
+  <image class="dialog-bg" src="/images/dialog_bg3.png" mode="aspectFill"/>
   <view class="dialog-container">
     <view class="dialog-header text-left">
       <text class="dialog-title">设置</text>
@@ -45,7 +45,7 @@
       <mp-form id="form" rules="{{rules}}" models="{{formData}}">
         <view class="df ai-center form-switch">
           <view class="form-title text-left">智能推广开关</view>
-          <z-switch checked="{{formData.promote_monitor}}" color="#3B3085" bind:switch="onSwitch" />
+          <z-switch checked="{{formData.promote_monitor}}" color="#38F0C0" bind:switch="onSwitch" />
         </view>
         <mp-cells ext-class="setting-cells">
           <mp-cell prop="promote_budget" title="今日预算:">

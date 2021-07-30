@@ -1,0 +1,17 @@
+<!--pages/login/index.wxml-->
+<mp-loading ext-class="loading-center" show="{{loading}}" type="{{type}}" tips="登录中..." />
+<view class="userinfo df flex-column jc-center ai-center">
+  <view class="df flex-column ai-center">
+    <image class="avatar" src="/images/logo_rect.png" mode="aspectFit"></image>
+    <text class="title">{{ title }}</text>
+  </view>
+  <view class="">
+    <button
+      class="login-btn bg-mainColor"
+      hover-class="button-hover"
+      bindtap="getUserProfile"
+    >
+      登录
+    </button>
+  </view>
+</view>

@@ -36,12 +36,17 @@ class HTTP {
           if (res.data.code == '200') {
             resolve(res.data.result)
           } else if (res.data.code == '10001') {
+            // token过期
             wx.removeStorageSync('token');
-            wx.removeStorageSync('openId');
+            wx.removeStorageSync('userId');
             Login.wxLogin(() => {
               this._request(url, resolve, reject, data, method)
             })
           } else if (res.data.code == '303') {
+            // 当前店铺掉线
+            reject(res.data)
+          }  else if (res.data.code == '10005') {
+            // 店铺到期， 请充值
             wx.showToast({
               icon: 'none',
               title: res.data.msg,

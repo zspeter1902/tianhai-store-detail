@@ -1,21 +1,31 @@
 {
-  "pages":[
+  "pages": [
     "pages/my/index",
-    "pages/data/index"
+    "pages/data/index",
+    "pages/authorization/index",
+    "pages/login/index",
+    "pages/store/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "管理",
-    "navigationBarTextStyle":"black",
+    "navigationBarTextStyle": "black",
     "navigationStyle": "custom",
     "enablePullDownRefresh": false
   },
   "tabBar": {
+    "custom": true,
     "list": [
       {
         "pagePath": "pages/data/index",
         "text": "数据",
+        "iconPath": "images/tabbar/data.png",
+        "selectedIconPath": "images/tabbar/data_checked.png"
+      },
+      {
+        "pagePath": "pages/store/index",
+        "text": "",
         "iconPath": "images/tabbar/data.png",
         "selectedIconPath": "images/tabbar/data_checked.png"
       },
@@ -27,7 +37,7 @@
       }
     ],
     "color": "#333",
-    "selectedColor": "#CA6FFF",
+    "selectedColor": "#4037CF",
     "borderStyle": "white",
     "backgroundColor": "#ffffff"
   },

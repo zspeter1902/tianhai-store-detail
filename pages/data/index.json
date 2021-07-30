@@ -4,9 +4,10 @@
     "mp-loading": "weui-miniprogram/loading/loading",
     "base": "./components/base/index",
     "tabs": "./components/tabs/index",
-    "store": "./components/store/index",
     "list": "./components/list/index",
     "reply": "./components/reply/index",
-    "extension": "./components/extension/index"
+    "extension": "./components/extension/index",
+    "mp-dialog": "weui-miniprogram/dialog/dialog",
+    "mp-icon": "weui-miniprogram/icon/icon"
   }
 }

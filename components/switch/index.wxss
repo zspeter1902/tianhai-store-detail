@@ -3,7 +3,7 @@
   width: 108rpx;
   height: 58rpx;
   border-radius: 30rpx;
-  /* background-color: #CA6FFF; */
+  /* background-color: #4037CF; */
 }
 .switch::before {
   display: block;

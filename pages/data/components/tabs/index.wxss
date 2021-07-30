@@ -8,7 +8,7 @@
 .weui-tabs-bar__content{
   display: flex;
   width:100%;
-  padding: 30rpx 10rpx;
+  padding: 30rpx 20rpx;
   white-space:nowrap;
   justify-content: space-between;
 }
@@ -23,12 +23,12 @@
 .weui-tabs-bar__title{
   display:inline-block;
   width: 100%;
-  padding: 18rpx 8rpx;
+  padding: 20rpx 32rpx;
   font-size: 28rpx;
   line-height: 38rpx;
 }
 .selected {
-  filter: drop-shadow(0rpx 4rpx 8rpx rgba(212, 155, 245, 0.63));
+  filter: drop-shadow(1rpx 4rpx 8rpx rgba(64, 55, 207, 0.76));
 }
 .weui-tabs-bar__item::before,
 .weui-tabs-bar__item::after  {
@@ -42,9 +42,9 @@
   top: 0;
   margin-left: -4rpx;
   border-left: 24rpx solid #e7e7e7;
-  border-top: 36rpx solid transparent;
+  border-top: 39rpx solid transparent;
   border-right: 24rpx solid transparent;
-  border-bottom: 36rpx solid #e7e7e7;
+  border-bottom: 39rpx solid #e7e7e7;
   border-top-left-radius: 8rpx;
   border-bottom-right-radius: 8rpx;
 }
@@ -55,9 +55,9 @@
   top: 0;
   margin-right: -4rpx;
   border-left: 24rpx solid transparent;
-  border-top: 36rpx solid #e7e7e7;
+  border-top: 39rpx solid #e7e7e7;
   border-right: 24rpx solid #e7e7e7;
-  border-bottom: 36rpx solid transparent;
+  border-bottom: 39rpx solid transparent;
   border-top-left-radius: 8rpx;
   border-bottom-right-radius: 8rpx;
 }
@@ -68,9 +68,9 @@
   top: 0;
   margin-left: -4rpx;
   border-left: 24rpx solid #e7e7e7;
-  border-top: 36rpx solid transparent;
+  border-top: 39rpx solid transparent;
   border-right: 24rpx solid transparent;
-  border-bottom: 36rpx solid #e7e7e7;
+  border-bottom: 39rpx solid #e7e7e7;
   border-top-left-radius: 8rpx;
   border-bottom-right-radius: 8rpx;
 }
@@ -82,35 +82,22 @@
   top: 0;
   margin-right: -4rpx;
   border-left: 24rpx solid transparent;
-  border-top: 36rpx solid #e7e7e7;
+  border-top: 39rpx solid #e7e7e7;
   border-right: 24rpx solid #e7e7e7;
-  border-bottom: 36rpx solid transparent;
+  border-bottom: 39rpx solid transparent;
   border-top-left-radius: 8rpx;
   border-bottom-right-radius: 8rpx;
 }
 .weui-tabs-bar__item:nth-child(3)::after {
   content: '';
   position: absolute;
-  left: 100%;
-  top: 0;
-  margin-left: -4rpx;
-  border-left: 24rpx solid #e7e7e7;
-  border-top: 36rpx solid transparent;
-  border-right: 24rpx solid transparent;
-  border-bottom: 36rpx solid #e7e7e7;
-  border-top-left-radius: 8rpx;
-  border-bottom-right-radius: 8rpx;
-}
-.weui-tabs-bar__item:nth-child(4)::after {
-  content: '';
-  position: absolute;
   right: 100%;
   top: 0;
   margin-right: -4rpx;
   border-left: 24rpx solid transparent;
-  border-top: 36rpx solid #e7e7e7;
+  border-top: 39rpx solid #e7e7e7;
   border-right: 24rpx solid #e7e7e7;
-  border-bottom: 36rpx solid transparent;
+  border-bottom: 39rpx solid transparent;
   border-top-left-radius: 8rpx;
   border-bottom-right-radius: 8rpx;
 }
@@ -126,48 +113,34 @@
 }
 .weui-tabs-bar__item:nth-child(3) {
   border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
-  /* border-bottom-left-radius: 0; */
-  text-align: center;
-}
-.weui-tabs-bar__item:nth-child(4) {
-  border-top-left-radius: 0;
   text-align: right;
 }
 .weui-tabs-bar__item:nth-child(1) .nav-tab {
-  padding-left: 22rpx;
+  padding-left: 46rpx;
 }
 .weui-tabs-bar__item:nth-child(2) .nav-tab {
 
 }
-.weui-tabs-bar__item:nth-child(4) .nav-tab {
-  padding-right: 22rpx;
+.weui-tabs-bar__item:nth-child(3) .nav-tab {
+  padding-right: 46rpx;
 }
 .weui-tabs-bar__item.selected {
-  background-color: #CA6FFF;
+  background-color: #4037CF;
   color: #fff;
 }
 .weui-tabs-bar__item:nth-child(1).selected::after {
-  border-left-color: #CA6FFF;
-  border-bottom-color: #CA6FFF;
+  border-left-color: #4037CF;
+  border-bottom-color: #4037CF;
 }
 .weui-tabs-bar__item:nth-child(2).selected::before {
-  border-top-color: #CA6FFF;
-  border-right-color: #CA6FFF;
+  border-top-color: #4037CF;
+  border-right-color: #4037CF;
 }
 .weui-tabs-bar__item:nth-child(2).selected::after {
-  border-left-color: #CA6FFF;
-  border-bottom-color: #CA6FFF;
+  border-left-color: #4037CF;
+  border-bottom-color: #4037CF;
 }
 .weui-tabs-bar__item:nth-child(3).selected::after {
-  border-left-color: #CA6FFF;
-  border-bottom-color: #CA6FFF;
-}
-.weui-tabs-bar__item:nth-child(3).selected::before {
-  border-top-color: #CA6FFF;
-  border-right-color: #CA6FFF;
-}
-.weui-tabs-bar__item:nth-child(4).selected::after {
-  border-top-color: #CA6FFF;
-  border-right-color: #CA6FFF;
+  border-top-color: #4037CF;
+  border-right-color: #4037CF;
 }

@@ -1,11 +1,17 @@
 <!--pages/data/components/base/index.wxml-->
-<view class="base">
-  <image class="bg" src="/images/bg.png" mode="widthFix"></image>
+<view class="base" style="padding-top: {{statusBarHeight}}px; background-image: url(images/bg.png)">
   <view class="base-box df ai-center">
-    <image class="logo" src="{{info.pic_url}}" mode="aspectFit">
+    <image class="logo" src="{{list[index].shop_logo}}" mode="aspectFit">
     </image>
     <view class="brand-info">
-      <view class="brand-name ellipsis">{{info.shop_name}}</view>
+      <view class="">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{list}}" range-key="shop_name">
+          <view class="picker bg-white ellipsis">
+            {{list[index].shop_name}}
+          </view>
+        </picker>
+      </view>
+      <view class="brand-name ellipsis">{{list[index].shop_name}}</view>
       <view class="brand-time">时间：{{time}}</view>
     </view>
   </view>

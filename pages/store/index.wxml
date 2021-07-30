@@ -1,0 +1,24 @@
+<!--pages/store/index.wxml-->
+<mp-loading ext-class="loading-center" show="{{loading}}"  />
+<!-- 自定义顶部条 -->
+<custom />
+<!-- 主要内容 -->
+<view class="container" style="margin-top: {{statusBarHeight}}px">
+  <view wx:for="{{lists}}" wx:key="index" class="list bg-white" data-item="{{item}}">
+    <view class="df jc-between ai-center names">
+      <view class="name">{{item.shop_name}}</view>
+      <!-- <text class="status df-fixed {{item.is_online ? 'on' : ''}}">{{item.is_online ? '在线' : '离线'}}</text> -->
+    </view>
+    <view class="df jc-between fw-wrap">
+      <view class="account df ai-center df-auto">
+        <image class="logo" mode="aspectFit" src="/images/meituan.png" />
+        <text>帐号：{{item.mt_account_id || '暂无'}}</text>
+      </view>
+      <view class="account df ai-center df-auto">
+        <image class="logo" mode="aspectFit" src="/images/eleme.png" />
+        <text>帐号：{{item.elem_account_id || '暂无'}}</text>
+      </view>
+    </view>
+  </view>
+  <button class="btn" hover-class="button-hover" bindtap="onLink">新建店铺</button>
+</view>

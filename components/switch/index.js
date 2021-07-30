@@ -11,7 +11,7 @@ Component({
     checked: Boolean,
     color: {
       type: String,
-      value: '#CA6FFF'
+      value: '#4037CF'
     }
   },
 

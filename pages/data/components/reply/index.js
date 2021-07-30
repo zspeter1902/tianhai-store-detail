@@ -13,7 +13,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    shopName: {
+    shopId: {
       type: String
     }
   },
@@ -26,7 +26,6 @@ Component({
     lists: {},
     lists2: {},
     dialogShow: false,
-    isTip: false,
     formData: [],
     rules: [{
       name: 'reply',
@@ -37,10 +36,10 @@ Component({
     resultData: [],
     showIndex: 0,
     mtSearch: [],
-    elemeSearch: [],
+    elemSearch: []
   },
   observers: {
-    'shopName': function(newVal) {
+    'shopId': function(newVal) {
       if (newVal) {
         this.getInfo()
       }
@@ -52,23 +51,23 @@ Component({
   methods: {
     getInfo() {
       Login.checkLogin(() => {
-        user.getShopReply(this.data.shopName).then(res => {
+        user.getShopReply(this.data.shopId).then(res => {
           this.setData({
             formData: res.data,
             switch: !!Number(res.status)
           })
         })
-        user.getReplyStatistics().then(res => {
+        user.getReplyStatistics(this.data.shopId).then(res => {
           this.setData({
             lists: res.mt,
-            lists2: res.eleme
+            lists2: res.elem
           })
         })
       }, false)
     },
-    setReply(shopName, num, reply) {
+    setReply(shopId, num, reply) {
       Login.checkLogin(() => {
-        user.setShopReply(shopName, num, reply).then(res => {
+        user.setShopReply(shopId, num, reply).then(res => {
           wx.showToast({
             title: '保存成功！',
             icon: 'success',
@@ -95,7 +94,7 @@ Component({
         cancelText: '取消',
         cancelColor: '#000000',
         confirmText: '确定',
-        confirmColor: '#CA6FFF',
+        confirmColor: '#4037CF',
         success: (result) => {
           if(result.confirm){
             this.setAutoReply(e.detail)
@@ -127,8 +126,8 @@ Component({
           data: 'mtSearch',
           name: 'lists'
         },
-        'eleme': {
-          data: 'elemeSearch',
+        'elem': {
+          data: 'elemSearch',
           name: 'lists2'
         }
       }
@@ -141,8 +140,8 @@ Component({
       }
       user.getBadReplyList(this.data[types[type].name].account_id).then(res => {
         this.setData({
-          [types[type].data]: res.data.bad_review,
-          resultData: res.data.bad_review
+          [types[type].data]: res.bad_review,
+          resultData: res.bad_review
         })
         this.openSearch() // 打开弹窗
       })
@@ -158,7 +157,7 @@ Component({
     // 查询差评结束
     setAutoReply(status) {
       Login.checkLogin(() => {
-        user.bindShopReview(this.data.shopName, +status).then(res => {
+        user.bindShopReview(this.data.shopId, +status).then(res => {
           this.setData({
             switch: status
           })
@@ -212,7 +211,7 @@ Component({
       const arr = this.data.formData
       const currentData = arr.splice(index, 1)[0]
       Login.checkLogin(() => {
-        user.deleteReply(this.data.shopName, currentData.num).then(() => {
+        user.deleteReply(this.data.shopId, currentData.num).then(() => {
           wx.showToast({
             title: '删除成功！',
             icon: 'success',
@@ -245,7 +244,7 @@ Component({
           }
         } else {
           const currentData = this.data.formData[index]
-          this.setReply(this.data.shopName, currentData.num || this.data.formData.length, currentData.reply)
+          this.setReply(this.data.shopId, currentData.num || this.data.formData.length, currentData.reply)
           // this.setData({
           //   dialogShow: false
           // })

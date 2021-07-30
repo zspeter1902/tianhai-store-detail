@@ -1,0 +1,48 @@
+<!--components/platform/index.wxml-->
+<!-- 绑定 -->
+<view class="platform df flex-column custom-class">
+  <view class="df jc-around ai-center box">
+    <view class="item" bind:tap="onOpen" data-type="{{types['美团']}}">
+      <image class="logo" src="/images/meituan.png" mode="aspectFit"></image>
+    </view>
+    <view class="item" bind:tap="onOpen" data-type="{{types['饿了么']}}">
+      <image class="logo" src="/images/eleme.png" mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+<!-- 弹出框 -->
+<mp-dialog ext-class="dialog" show="{{dialogShow}}">
+  <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
+  <view class="dialog-container">
+    <view class="dialog-header text-left">
+      <text class="dialog-title">帐号授权</text>
+      <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onClose"></mp-icon>
+    </view>
+    <view class="dialog-content">
+      <view class="dialog-form">
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+          <mp-cells ext-class="my-cells">
+            <mp-cell prop="mobile">
+              <input bindinput="formInputChange" data-field="mobile" placeholder="手机号" class="weui-input" />
+              <view slot="footer" class="btn-code mainColor">
+                <text wx:if="{{countDown}}" class="grayColor">{{countDown + 's'}}</text>
+                <view wx:else bind:tap="getCode">获取验证码</view>
+              </view>
+            </mp-cell>
+            <mp-cell prop="code">
+              <input bindinput="formInputChange" data-field="code" placeholder="验证码" class="weui-input" />
+            </mp-cell>
+          </mp-cells>
+          <view class="my-cell-btn">
+            <button
+              loading="{{loading}}"
+              disabled="{{loading}}"
+              class="dialog-submit"
+              bindtap="formSubmit"
+              hover-class="button-hover">授权</button>
+          </view>
+        </mp-form>
+      </view>
+    </view>
+  </view>
+</mp-dialog>

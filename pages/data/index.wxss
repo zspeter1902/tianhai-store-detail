@@ -11,7 +11,7 @@
 }
 .dialog .weui-dialog {
   border-radius: 8rpx;
-  background-color: #CA6FFF;
+  background-color: #4037CF;
 }
 .dialog .weui-dialog__ft,
 .dialog .weui-dialog__hd {
@@ -55,4 +55,67 @@
 .setting-cells-margin {
   margin-bottom: 10rpx;
   overflow: hidden;
+}
+/* dialog */
+.dialog-container {
+  position: relative;
+  z-index: 2;
+}
+.dialog-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.dialog-header {
+  position: relative;
+}
+.dialog-title {
+  display: inline-block;
+  color: #fff;
+  font-size: 50rpx;
+  line-height: 70rpx;
+  font-weight: 600;
+  text-shadow: 0 3rpx 3rpx #b04aec;
+  font-family: '黑体';
+}
+
+.store-header {
+  margin-bottom: 50rpx;
+}
+.dialog-content-store {
+  max-height: 746rpx;
+  margin-bottom: 80rpx;
+}
+.store-header .dialog-title {
+  margin: 0 4rpx;
+}
+/* 店铺列表 */
+.tip-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.tip {
+  width: 100%;
+  margin-top: 80px;
+  padding: 38rpx;
+  line-height: 44rpx;
+  color: #fff;
+  font-size: 32rpx;
+  font-family: '黑体';
+  font-weight: bold;
+  background-color: #EB5353;
+}
+.tip .link {
+  display: inline-block;
+  border: none;
+  width: auto;
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
 }

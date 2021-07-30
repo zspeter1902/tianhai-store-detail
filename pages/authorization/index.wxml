@@ -1,0 +1,10 @@
+<!-- 自定义顶部条 -->
+<custom />
+<!-- 绑定 -->
+<view class="login df flex-column" style="margin-top: {{statusBarHeight}}px">
+  <platform />
+  <view class="tip text-center">点击图标并授权</view>
+  <view class="btns">
+    <button class="btn" bindtap="onLink" hover-class="button-hover">查看数据</button>
+  </view>
+</view>

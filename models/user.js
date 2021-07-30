@@ -5,89 +5,85 @@ class userModel extends HTTP {
     super()
     this.userId = wx.getStorageSync('userId')
   }
+  // 平台帐号授权
+  getCode(mobile, type) {
+    return this.request({
+      url: 'author/getVerificationCode',
+      method: 'post',
+      data: {
+        mobile,
+        type
+      }
+    })
+  }
+  onAuthorize(data) {
+    return this.request({
+      url: 'author/authorization',
+      method: 'post',
+      data
+    })
+  }
   // 店铺基础数据
-  getBase() {
-    const openId = wx.getStorageSync('openId')
-    return this.request({
-      url: 'shop/customerInfo',
-      data: {
-        openid: openId
-      }
-    })
-  }
-  // 店铺信息获取
-  getShopInfo(startTime, endTime) {
-    const openId = wx.getStorageSync('openId');
-    return this.request({
-      url: 'shop/info',
-      method: 'POST',
-      data: {
-        openid: openId,
-        start_time: startTime,
-        end_time: endTime
-      }
-    })
-  }
-  // 店铺评价统计
-  getShopReview() {
-    const openId = wx.getStorageSync('openId');
-    return this.request({
-      url: 'shop/review',
-      data: {
-        openid: openId
-      }
-    })
-  }
+  // getBase() {
+  //   const userId = wx.getStorageSync('userId')
+  //   return this.request({
+  //     url: 'shop/customerInfo',
+  //     data: {
+  //       userId: userId
+  //     }
+  //   })
+  // }
   // 获取默认评价回复列表
-  getShopReply(shopName) {
+  getShopReply(shop_id) {
     return this.request({
-      url: 'shop/getReply',
+      url: 'shop/getOperationReply',
+      method: 'post',
       data: {
-        shop_name: shopName
+        shop_id: shop_id
       }
     })
   }
   // 设置默认评价回复内容
-  setShopReply(shopName, num, reply) {
+  setShopReply(shop_id, num, reply) {
     return this.request({
-      url: 'shop/setReply',
+      url: 'shop/setOperationReply',
       method: 'post',
       data: {
-        shop_name: shopName,
+        shop_id: shop_id,
         num,
         reply
       }
     })
   }
   // 删除自动回复内容
-  deleteReply(shopName, num) {
+  deleteReply(shop_id, num) {
     return this.request({
       url: 'shop/delOperationReply',
       method: 'POST',
       data: {
-        shop_name: shopName,
+        shop_id: shop_id,
         num
       }
     })
   }
   // 获取店铺出单列表
-  getOrders() {
-    const openId = wx.getStorageSync('openId');
+  getOrders(shop_id) {
     return this.request({
       url: 'shop/getRealTimeOrders',
+      method: 'post',
       data: {
-        openid: openId
+        shop_id: shop_id
       }
     })
   }
   // 设置店铺出单时间
-  setShopTime(shopName, status, time = 15, mealTime = 60) {
+  setShopTime(shop_id, status, time = 15, mealTime = 60) {
     return this.request({
-      url: 'shop/setShopTime',
+      url: 'shop/setOutOrderTime',
       method: 'post',
       data: {
-        shop_name: shopName,
-        out_order_time: time,
+        shop_id: shop_id,
+        meal_time: time,
         meal_time_ad: mealTime,
         status
       }
@@ -95,43 +91,33 @@ class userModel extends HTTP {
   }
   // 获取当前客户绑定的店铺信息
   getShopAccount() {
-    const openId = wx.getStorageSync('openId')
+    const userId = wx.getStorageSync('userId')
     return this.request({
-      url: 'shop/getAccount',
+      url: 'shop/getCustomerShopInfo',
+      method: 'POST',
       data: {
-        openid: openId
-      }
-    })
-  }
-  // 绑定店铺ID
-  bindShopAccountId(mtId, elemeId) {
-    const openId = wx.getStorageSync('openId')
-    return this.request({
-      url: 'shop/bindAccountId',
-      data: {
-        openid: openId,
-        mt_account_id: mtId,
-        eleme_account_id: elemeId
+        user_id: userId
       }
     })
   }
   // 店铺自动回复开启关闭设置
-  bindShopReview(shopName, status) {
+  bindShopReview(shop_id, status) {
     return this.request({
       url: 'shop/setShopReview',
+      method: 'post',
       data: {
-        shop_name: shopName,
-        status
+        shop_id: shop_id,
+        is_reply: status
       }
     })
   }
   // 获取统计店铺自动回复数量
-  getReplyStatistics() {
-    const openId = wx.getStorageSync('openId')
+  getReplyStatistics(shop_id) {
     return this.request({
       url: 'shop/autoReviewCount',
+      method: 'post',
       data: {
-        openid: openId
+        shop_id: shop_id
       }
     })
   }
@@ -139,26 +125,19 @@ class userModel extends HTTP {
   getBadReplyList(account_id) {
     return this.request({
       url: 'shop/badReviewSearch',
+      method: 'post',
       data: {
         account_id
       }
     })
   }
-  // 新增测试店铺
-  applyTest(data) {
-    return this.request({
-      url: 'shop/userBindInvitationShop',
-      method: 'POST',
-      data
-    })
-  }
   // 智能推广-->详情
-  getExtensionDetail() {
-    const openId = wx.getStorageSync('openId')
+  getExtensionDetail(shop_id) {
     return this.request({
       url: 'shop/promoteInfo',
+      method: 'POST',
       data: {
-        openid: openId
+        shop_id
       }
     })
   }
@@ -178,10 +157,21 @@ class userModel extends HTTP {
       data
     })
   }
-  // 获取公告列表
-  getNotice() {
+  // 会员
+  getVipList() {
     return this.request({
-      url: 'shop/getNotice'
+      url: 'order/productList',
+    })
+  }
+  onBuy(id) {
+    const userId = wx.getStorageSync('userId')
+    return this.request({
+      url: 'order/buyMembers',
+      method: 'POST',
+      data: {
+        user_id: userId,
+        id
+      }
     })
   }
 }

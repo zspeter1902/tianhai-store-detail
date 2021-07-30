@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "授权",
+  "usingComponents": {
+    "platform": "/components/platform/index"
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "z-title": "../title/index",
-    "s-title": "../s-title/index",
-    "table": "../table/index",
-    "ec-canvas": "/ec-canvas/ec-canvas"
-  }
-}

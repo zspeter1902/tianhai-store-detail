@@ -9,8 +9,8 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    info: {
-      type: Object,
+    list: {
+      type: Array,
       value: () => {}
     }
   },
@@ -19,6 +19,8 @@ Component({
    * 组件的初始数据
    */
   data: {
+    statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
+    index: 0,
     time: null
   },
   /**
@@ -46,6 +48,12 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    bindPickerChange(e) {
+      const index = e.detail.value
+      this.setData({
+        index: index
+      })
+      this.triggerEvent('select', { index })
+    }
   }
 })

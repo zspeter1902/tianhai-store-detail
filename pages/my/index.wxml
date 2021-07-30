@@ -1,110 +1,156 @@
 <mp-loading ext-class="loading-center" show="{{loading}}" type="{{type}}" tips="登录中..." />
 <!-- 自定义顶部条 -->
 <custom />
-<view class="userinfo" >
-  <image class="bg" src="/images/dialog_bg.png" mode="aspectFill"/>
-  <view class="box df ai-center" style="padding-top: {{statusBarHeight}}px">
-    <view class="df-fixed">
-      <open-data class="avatar" type="userAvatarUrl"></open-data>
-      <!-- <image class="avatar" src="{{userInfo.photo}}" mode="aspectFit"></image> -->
-    </view>
-    <view class="df-auto">
-      <view class="name" wx:if="{{token && userInfo.nickName}}">您好, <open-data type="userNickName"></open-data></view>
-      <button
-        wx:else
-        class="login-btn"
-        hover-class="button-hover"
-        bindtap="getUserProfile"
-      >
-        登录
-      </button>
+<view class="container ovh" style="margin-top: {{statusBarHeight}}px">
+  <view class="userinfo" >
+    <view class="box" style="background-image: url('images/dialog_bg.png')">
+      <view class="df ai-center">
+        <open-data class="avatar df-fixed" type="userAvatarUrl"></open-data>
+        <view class="ovh df-auto">
+          <block wx:if="{{token}}">
+            <open-data class="name" type="userNickName"></open-data>
+            <view class="time">到期时间 {{userData.expire_date}}</view>
+          </block>
+          <button
+            wx:else
+            class="login-btn"
+            hover-class="button-hover"
+            bindtap="getUserProfile"
+          >
+            登录
+          </button>
+        </view>
+      </view>
+      <block wx:if="{{token}}">
+        <view class="record">
+          <view class="record-tip">
+            已使用本产品{{useDay}}天
+          </view>
+          <progress class="progress" percent="{{useRatio}}" border-radius="3rpx" stroke-width="14rpx" active activeColor="#ffffff" backgroundColor="#392FD3" />
+        </view>
+        <view class="text-right">
+          <button
+            class="renew-btn"
+            hover-class="button-hover"
+            bind:tap="onOpen"
+          >
+            立即续费
+          </button>
+        </view>
+      </block>
     </view>
   </view>
+  <!-- 绑定 -->
+  <block wx:if="{{token}}">
+    <view wx:if="{{lists.length === 1}}" class="bg-white bind">
+      <view class="title">店铺绑定</view>
+      <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" />
+    </view>
+    <view wx:else class="bind-more">
+      <view class="title">店铺列表</view>
+      <view class="store-lists">
+        <view wx:for="{{lists}}" class="store-list bg-white">
+          <view class="store-name secondaryColor ellipsis">{{item.shop_name}}</view>
+          <!-- 美团 -->
+          <view class="df ai-center jc-between item">
+            <view class="df-auto secondaryColor">
+              <image class="logo" src="/images/meituan.png" mode="aspectFit"></image>
+              <text>帐号：{{item.mt_account_id || "暂无"}}</text>
+            </view>
+            <text class="store-status df-fixed {{item.mt_is_online ? 'on' : ''}}">{{ item.mt_account_id ? (item.mt_is_online ? '在线' : '离线') : ''}}</text>
+            <view class="df-fixed store-btns">
+              <button wx:if="{{item.mt_account_id && !item.mt_is_online}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['美团']}}" data-item="{{item}}">重新授权</button>
+            </view>
+          </view>
+          <!-- 饿了么 -->
+          <view class="df ai-center jc-between item">
+            <view class="df-auto secondaryColor">
+              <image class="logo" src="/images/eleme.png" mode="aspectFit"></image>
+              <text>帐号：{{item.elem_account_id || "暂无"}}</text>
+            </view>
+            <text class="store-status df-fixed {{item.elem_is_online ? 'on' : ''}}">{{ item.elem_account_id ? (item.elem_is_online ? '在线' : '离线') : ''}}</text>
+            <view class="df-fixed store-btns">
+              <button wx:if="{{item.elem_account_id && !item.elem_is_online}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['饿了么']}}" data-item="{{item}}">重新授权</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
 </view>
+
 <!-- 绑定 -->
-<view class="company">
-  <view class="box df ai-center bg-white {{isFirstBind ? 'bind' : ''}}">
-    <image class="logo" src="/images/meituan.png" mode="aspectFit"></image>
-    <view class="info df-auto">
-      <view class="df">
-        <text class="name df-fixed">店铺ID：</text>
-        <view class="df df-auto jc-between" wx:if="{{isFirstBind}}">
-          <text class="value ">{{ firstId }}</text>
-          <mp-icon class="icon-edit" icon="pencil" color="#3b3085" size="{{24}}" data-field="isFirstBind" bind:tap="onEdit"></mp-icon>
-          <!-- <image class="icon-edit" src="/images/edit.png" mode="aspectFit" data-field="isFirstBind" bind:tap="onEdit" /> -->
-        </view>
-        <input wx:else class="input" type="text" data-field="firstId" value="{{firstId}}" bindinput="inputChange"/>
-      </view>
-    </view>
-  </view>
-  <view class="box df ai-center bg-white {{isSecondBind ? 'bind' : ''}}">
-    <image class="logo" src="/images/eleme.png" mode="aspectFit"></image>
-    <view class="info df-auto">
-      <view class="df">
-        <text class="name df-fixed">店铺ID：</text>
-        <view class="df df-auto jc-between" wx:if="{{isSecondBind}}">
-          <text class="value">{{ secondId }}</text>
-          <mp-icon class="icon-edit" icon="pencil" color="#3b3085" size="{{24}}" data-field="isSecondBind" bind:tap="onEdit"></mp-icon>
-        </view>
-        <input wx:else class="input" type="text" data-field="secondId" value="{{secondId}}" bindinput="inputChange"/>
-      </view>
-    </view>
-  </view>
-  <button wx:if="{{!isSecondBind || !isFirstBind}}" class="btn-bind" bindtap="onBind" hover-class="button-hover">绑定ID</button>
-  <button class="btn-apply" bindtap="onOpen" hover-class="button-hover">申请试用名额</button>
-</view>
 <!-- 弹出框 -->
-<mp-dialog ext-class="dialog" show="{{dialogShow}}">
+<mp-dialog ext-class="dialog" show="{{platformShow}}">
   <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
   <view class="dialog-container">
     <view class="dialog-header text-left">
-      <text class="dialog-title">申请试用</text>
-      <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onClose"></mp-icon>
+      <text class="dialog-title">帐号授权</text>
+      <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onClosePlatform"></mp-icon>
     </view>
     <view class="dialog-content">
       <view class="dialog-form">
         <mp-form id="form" rules="{{rules}}" models="{{formData}}">
           <mp-cells ext-class="my-cells">
-            <mp-cell prop="name" title="店铺名称:" ext-class="">
-              <input bindinput="formInputChange" data-field="name" class="weui-input" />
+            <mp-cell prop="mobile">
+              <input bindinput="formInputChange" data-field="mobile" value="{{formData.mobile}}" placeholder="手机号" class="weui-input" />
+              <view slot="footer" class="btn-code mainColor">
+                <text wx:if="{{countDown}}" class="grayColor">{{countDown + 's'}}</text>
+                <view wx:else bind:tap="getCode">获取验证码</view>
+              </view>
             </mp-cell>
-            <mp-cell prop="mtId" title="美团ID:">
-              <input bindinput="formInputChange" data-field="mtId" class="weui-input" />
-            </mp-cell>
-            <mp-cell prop="elemeId" title="饿了么ID:">
-              <input bindinput="formInputChange" data-field="elemeId" class="weui-input" />
-            </mp-cell>
-          </mp-cells>
-          <mp-cells ext-class="my-cells my-cells-code">
-            <mp-cell prop="code" title="邀请码:">
-              <input bindinput="formInputChange" data-field="code" class="weui-input" />
+            <mp-cell prop="code">
+              <input bindinput="formInputChange" data-field="code" placeholder="验证码" class="weui-input" />
             </mp-cell>
           </mp-cells>
-          <view class="my-cell-tip">
-            <text class="text">联系天海商务部获取邀请码</text>
-            <text class="text" catch:tap="toCall">联系方式：{{phone}}</text>
-          </view>
           <view class="my-cell-btn">
             <button
+              loading="{{isSubmit}}"
+              disabled="{{isSubmit}}"
               class="dialog-submit"
               bindtap="formSubmit"
-              hover-class="button-hover">确定</button>
+              hover-class="submit-hover">授权</button>
           </view>
         </mp-form>
       </view>
     </view>
   </view>
 </mp-dialog>
-<!-- 通知 -->
-<mp-dialog ext-class="dialog" show="{{dialogShowMessage}}" mask-closable="{{false}}">
-  <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill" />
-  <view class="dialog-container">
-    <view class="dialog-header text-center">
-      <text class="dialog-title">通知</text>
-      <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onCloseMessage"></mp-icon>
-    </view>
-    <view class="dialog-message">
-      <text class="text">{{message.content}}</text>
-    </view>
+
+<!-- 支付弹窗 -->
+<mp-half-screen-dialog
+  ext-class="pay-dialog"
+  bindbuttontap="onPay"
+  closabled="{{false}}"
+  show="{{dialogShow}}"
+  title="会员购买"
+  buttons="{{buttons}}"
+>
+  <view slot="desc">
+    <mp-tabs
+      tabs="{{tabs}}"
+      activeTab="{{activeTab}}"
+      swiperClass="weui-tabs-swiper"
+      bindtabclick="onTabClick"
+      bindchange="onChange"
+      tab-inactive-text-color="#666666"
+      tab-underline-color="#4037CF"
+      tab-active-text-color="#4037CF"
+      activeClass="tab-bar-title__selected"
+    >
+      <block wx:for="{{tabs}}">
+        <view class="tab-content df flex-wrap" slot="tab-content-{{index}}">
+          <view wx:for="{{item.lists}}" wx:for-item="list" wx:key="name" class="item">
+            <view class="box text-center {{vipItem.id === list.id ? 'checked' : ''}}" hover-class="box-hover" bind:tap="vipCheck" data-list="{{list}}">
+              <text class="name">{{list.title}}</text>
+              <view class="price">
+                <text class="rmb">￥</text>
+                <text class="cost">{{list.amount}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </mp-tabs>
   </view>
-</mp-dialog>
+</mp-half-screen-dialog>

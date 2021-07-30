@@ -30,18 +30,16 @@
       "outputPath": ""
     },
     "enableEngineNative": false,
-    "bundle": false,
     "useIsolateContext": true,
-    "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "showES6CompileOption": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.3",
-  "appid": "wx0503ec2671385574",
+  "appid": "wxc9580d5fa712a085",
   "projectname": "wx-store-detail",
   "debugOptions": {
     "hidedInDevtools": []

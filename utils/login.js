@@ -15,10 +15,10 @@ class login {
         cancelText: '取消',
         cancelColor: '#333333',
         confirmText: '确定',
-        confirmColor: '#CA6FFF',
+        confirmColor: '#4037CF',
         success: (result) => {
           if (result.confirm) {
-            wx.removeStorageSync('openId');
+            wx.removeStorageSync('userId');
             if (pages[pages.length - 1].route == 'pages/my/index') {
               that.wxLogin()
             } else {
@@ -34,26 +34,29 @@ class login {
 
   async wxLogin(callback) {
     const wxa = wx.async(['login'])
-    const accountInfo = wx.getAccountInfoSync();
-    const appid = accountInfo.miniProgram.appId;
+    const userInfo = wx.getStorageSync('userInfo')
+    // const accountInfo = wx.getAccountInfoSync();
+    // const appid = accountInfo.miniProgram.appId;
     try {
       const res1 = await wxa.login()
+      // console.log(res1)
       wx.request({
         url: config.api_base_url + 'login/wxLogin',
-        method: 'GET',
+        method: 'post',
         data: {
           code: res1.code,
-          appid: appid
+          nick_name: userInfo.nickName
         },
         success: (res) => {
           const result = res.data.result
           if (res.data.code == 200) {
             wx.removeStorageSync('token')
-            wx.removeStorageSync('openId')
+            wx.removeStorageSync('userId')
             if (result.token) {
               wx.setStorageSync('token', result.token)
             }
-            wx.setStorageSync('openId', result.openid)
+            wx.setStorageSync('userId', result.user_info.id)
+            wx.setStorageSync('userData', result.user_info)
             if (callback) {
               callback()
               return

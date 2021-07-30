@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "新建店铺",
+  "usingComponents": {
+    "mp-loading": "weui-miniprogram/loading/loading"
+  }
+}

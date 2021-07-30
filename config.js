@@ -1,6 +1,7 @@
 const config = {
-    api_base_url: "https://www.thwaimai.cn/shop_info/index.php/",
-    picUrl: "https://www.thwaimai.cn/shop_info/index.php/"
+  title: '天海商圈查',
+  api_base_url: "https://waimaibao.tianhaiweb.com/tianhai_xcx/public/index.php/",
+  picUrl: "https://waimaibao.tianhaiweb.com/tianhai_xcx/public/index.php/"
 }
-//wxbfc93599a1df44a4 wxb522552bc7bd77be
+// wxc9580d5fa712a085
 export { config }

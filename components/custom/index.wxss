@@ -4,7 +4,7 @@
   box-sizing: border-box;
   overflow: hidden;
   position: fixed;
-  top: 0rpx;
+  top: -8rpx;
   left: 0;
   transition: all .3s;
   text-align: center;
@@ -19,7 +19,7 @@
   font-size: 30rpx;
 }
 .commonHead_img{
-  max-width: 222rpx;
-  max-height: 70rpx;
+  max-width: 169rpx;
+  max-height: 81rpx;
   margin: 0 auto;
 }

@@ -13,7 +13,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    shopName: {
+    shopId: {
       type: String
     }
   },
@@ -50,8 +50,9 @@ Component({
     }
   },
   observers: {
-    'shopName': function(newVal) {
+    'shopId': function(newVal) {
       if (newVal) {
+        clearInterval(this.data.realTime)
         this.getInfo()
       }
     }
@@ -81,14 +82,18 @@ Component({
   methods: {
     getInfo() {
       Login.checkLogin(() => {
-        user.getOrders().then(res => {
+        user.getOrders(this.data.shopId).then(res => {
           this.setData({
             lists: res.data.mt,
-            lists2: res.data.eleme,
+            lists2: res.data.elem,
             switch: !!Number(res.status),
             'formData.time': res.meal_time,
             'formData.mealTime': res.meal_time_ad
           })
+        }).catch(err => {
+          if (err.code == 303) {
+            this.triggerEvent('tip', {tip: true})
+          }
         })
       }, false)
     },
@@ -101,7 +106,7 @@ Component({
         cancelText: '取消',
         cancelColor: '#000000',
         confirmText: '确定',
-        confirmColor: '#CA6FFF',
+        confirmColor: '#4037CF',
         success: (result) => {
           if(result.confirm){
             this.setAutoList(e.detail)
@@ -117,7 +122,7 @@ Component({
     },
     setAutoList(status, time, mealTime) {
       Login.checkLogin(res => {
-        user.setShopTime(this.data.shopName, +status, time, mealTime).then(res => {
+        user.setShopTime(this.data.shopId, +status, time, mealTime).then(res => {
           this.setData({
             switch: status
           })

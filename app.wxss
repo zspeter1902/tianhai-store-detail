@@ -1,18 +1,8 @@
 @import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 page{
   position: relative;
+  padding-bottom: 136rpx;
   background-color: #f2f2f2;
-}
-page::after {
-  content: '';
-  position: fixed;
-  bottom: 1px;
-  left: 0;
-  right: 0;
-  border-top: 1px solid #dedede;
-  transform-origin: center bottom;
-  transform: scaleY(0.5);
-  z-index: 2;
 }
 .sk{
   height: 100%;
@@ -38,9 +28,11 @@ image {
   -webkit-overflow-scrolling: touch
 }
 /*color*/
-.mainColor{color:#FF8F3F;}
+.mainColor{color:#4037CF;}
+.secondaryColor{color:#3B3085;}
+.grayColor{color:#999;}
 
-.bg-mainColor{background-color:#FF8F3F;}
+.bg-mainColor{background-color:#4037CF;}
 .bg-white{background-color: #fff;}
 .bg-gray {background-color: #f5f5f5;}
 
@@ -166,4 +158,41 @@ image {
   height: 100%;
   background-color: rgba(255,255,255,0.8);
   z-index: 3000;
+}
+/* button */
+button[type=primary] {
+  background-color: #4037CF;
+}
+/* dialog cell */
+.dialog .weui-dialog {
+  border-radius: 8rpx;
+  background-color: #4037CF;
+}
+.dialog .weui-dialog__ft,
+.dialog .weui-dialog__hd {
+  display: none !important;
+}
+.dialog .weui-dialog__bd {
+  padding: 52rpx 28rpx 36rpx;
+  margin-bottom: 0;
+}
+.my-cells .weui-cells{
+  margin-top: 10rpx;
+  padding: 0 30rpx;
+  background-color: transparent;
+}
+.my-cells .cell--weui-cell_wxss.cell--weui-cell_wxss:before,
+.my-cells .weui-cells:after, .my-cells .weui-cells:before {
+  display: none;
+}
+.my-cells .weui-cell {
+  padding: 5rpx 40rpx;
+  margin-bottom: 30rpx;
+  font-size: 26rpx;
+  background-color: #fff;
+}
+.my-cells .weui-input {
+  height: 66rpx;
+  min-height: 66rpx;
+  line-height: 66rpx;
 }

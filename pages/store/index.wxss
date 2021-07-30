@@ -1,0 +1,60 @@
+/* pages/store/index.wxss */
+.container {
+  padding: 115rpx 32rpx 30rpx;
+}
+.list {
+  margin-bottom: 30rpx;
+  padding: 30rpx 28rpx;
+  border-radius: 8rpx;
+  color: #3B3085;
+}
+.list .preface {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-family: 黑体;
+  font-weight: bold;
+}
+.list .names {
+  margin-top: 10rpx;
+  margin-bottom: 14rpx;
+}
+.list .name {
+  font-size: 26rpx;
+  line-height: 38rpx;
+}
+.list .status {
+  margin-left: 20rpx;
+  padding: 0 10rpx;
+  font-size: 30rpx;
+  color: #E63232;
+  line-height: 38rpx;
+}
+.list .status.on {
+  color: #5BF452;
+}
+.list .account {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  white-space: nowrap;
+}
+.list .account .logo {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  border-radius: 8rpx;
+}
+.btn {
+  width: 100% !important;
+  padding: 23rpx;
+  border-radius: 8rpx;
+  border: 2rpx dashed #3B3085;
+  font-size: 24rpx;
+  color: #3B3085;
+  font-weight: normal;
+  line-height: 34rpx;
+  background-color: transparent;
+}
+.button-hover {
+  background-color: rgba(59, 48, 133, 0.08);
+}

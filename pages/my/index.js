@@ -11,134 +11,127 @@ Page({
    */
   data: {
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
-    loading: true,
+    loading: false,
+    userData: wx.getStorageSync('userData'),
     token: wx.getStorageSync('token'),
     type: 'dot-gray', //dot-gray circle
     userInfo: {},
-    firstId: null,
-    isFirstBind: false,
-    secondId: null,
-    isSecondBind: false,
     dialogShow: false,
-    dialogShowMessage: false,
+    buttons: [
+      {
+        type: 'primary',
+        className: '',
+        text: '立即支付99元',
+        value: 0
+      }
+    ],
+    tabs: [],
+    activeTab: 0,
+    // 店铺列表
+    lists: [],
+    types: {
+      '美团': 1,
+      '饿了么': 2
+    },
+    typesMobile: {
+      '1': 'mt_phone',
+      '2': 'elem_phone'
+    },
+    type: null,
+    platformShow: false,
+    isSubmit: false,
     formData: {},
     rules: [{
-      name: 'name',
-      rules: [{required: true, message: '请输入店铺名称'}]
+      name: 'mobile',
+      rules: [{required: true, message: '请输入手机号！'}]
     }, {
       name: 'code',
-      rules: [{required: true, message: '请输入邀请码！'}]
+      rules: [{required: true, message: '请输入验证码！'}]
     }],
-    phone: '13865970587',
-    message: {}
+    typeData: {},
+    // 选中待支付会员
+    vipItem: {},
+    // 天数
+    useRatio: null,
+    useDay: null,
+    // 倒计时
+    countDown: '',
+    timer: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getBindInfo()
-    this.getMessage()
     const userInfo = wx.getStorageSync('userInfo')
     if (userInfo) {
       this.setData({
-        userInfo
+        userInfo,
+        loading: true
       })
+      this.calcDay()
+      this.getList()
+      this.getVip()
     }
-    setTimeout(() => {
-      this.setData({
-        loading: false
-      })
-    }, 1500)
-  },
-  getMessage() {
-    const token = wx.getStorageSync('token');
-    if (!token) {
-      return
-    }
-    user.getNotice().then(res => {
-      const message = res.data[0]
-      this.setData({
-        message: message
-      })
-      if (!!message.status) {
-        this.setData({
-          loading: false
-        })
-        this.onOpenMessage()
-      }
-    })
-  },
-  getBindInfo() {
-    const token = wx.getStorageSync('token');
-    if (!token) {
-      return
-    }
-    user.getShopAccount().then(res => {
-      const result = res.data
-      this.setData({
-        firstId: result.mt_account_id,
-        isFirstBind: !!result.mt_account_id,
-        secondId: result.eleme_account_id,
-        isSecondBind: !!result.eleme_account_id
-      })
-    })
-  },
-  inputChange(e) {
-    const {field} = e.currentTarget.dataset
-    this.setData({
-      [field]: e.detail.value
-    })
-  },
-  onEdit(e) {
-    const {field} = e.currentTarget.dataset
-    this.setData({
-      [field]: false
-    })
-  },
-  onBind() {
-    user.bindShopAccountId(this.data.firstId, this.data.secondId).then(() => {
-      wx.showToast({
-        title: '绑定成功',
-        icon: 'success'
-      })
-      this.setData({
-        'isFirstBind': !!this.data.firstId,
-        'isSecondBind': !!this.data.secondId
-      })
-    }).catch(err => {
-      wx.showToast({
-        title: '绑定失败',
-        icon: 'error'
-      })
-    })
   },
   getUserProfile() {
+    const that = this
     wx.getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: res => {
-        console.log(res)
-        wx.setStorageSync('userInfo', res.userInfo)
-        this.setData({
-          loading: true,
-          type: 'circle'
-        })
-        Login.wxLogin(() => {
-          this.getBindInfo()
-          this.setData({
-            userInfo: res.userInfo,
-            token: wx.getStorageSync('token'),
-            loading: false,
-            type: 'dot-gray'
-          })
+        // wx.setStorageSync('userInfo', res.userInfo)
+        wx.setStorage({
+          key: 'userInfo',
+          data: res.userInfo,
+          success: (result)=>{
+            that.setData({
+              loading: true,
+              type: 'circle'
+            })
+            Login.wxLogin(() => {
+              that.setData({
+                loading: false,
+                type: 'dot-gray',
+                userData: wx.getStorageSync('userData'),
+                token: wx.getStorageSync('token')
+              })
+              that.onLoad()
+              // wx.redirectTo({
+              //   url: '/pages/authorization/index'
+              // });
+            });
+          },
         });
+
       }
     })
   },
-  isLogin() {
-    const token = wx.getStorageSync('token');
-    return !!token
+  calcDay() {
+    const {expire_date, create_time} = this.data.userData
+    const time = new Date().getTime()
+    const startTime = new Date(create_time).getTime()
+    const endTime = new Date(expire_date).getTime()
+    // 计算总天数
+    const totalDay = Math.ceil((endTime - startTime) / (1000 * 60 * 60 * 24))
+    // 计算使用天数
+    const useDay = Math.ceil((time - startTime) / (1000 * 60 * 60 * 24))
+    // 计算使用比率
+    const ratio = Math.ceil((useDay * 100) / totalDay)
+    // 更新数据
+    this.setData({
+      useRatio: ratio,
+      useDay: useDay
+    })
   },
+  getList() {
+    user.getShopAccount().then(res => {
+      this.setData({
+        loading: false,
+        lists: res.data
+      })
+    })
+  },
+
   onOpen() {
     this.setData({
       dialogShow: true
@@ -149,14 +142,95 @@ Page({
       dialogShow: false
     })
   },
-  onOpenMessage() {
+  onTabClick(e) {
+    const index = e.detail.index
     this.setData({
-      dialogShowMessage: true
+      activeTab: index
     })
   },
-  onCloseMessage() {
+  onChange(e) {
+    const index = e.detail.index
     this.setData({
-      dialogShowMessage: false
+      activeTab: index
+    })
+  },
+  getVip() {
+    user.getVipList().then(res => {
+      const tabs = []
+      const types = {
+        'more': '多店',
+        'single': '单店'
+      }
+      for (const key in res) {
+        tabs.push({
+          title: types[key],
+          lists: res[key]
+        })
+      }
+      this.setData({
+        tabs
+      })
+    })
+  },
+  vipCheck(e) {
+    const {list} = e.currentTarget.dataset
+    this.setData({
+      vipItem: list
+    })
+  },
+  onPay(e) {
+    // const {index, item} = e.detail
+    const id = this.data.vipItem.id
+    // console.log(index, item)
+    // let timestamp = Date.parse(new Date());
+    // timestamp = timestamp / 1000;
+    if (!id) {
+      wx.showToast({
+        icon: 'none',
+        title: '请选择套餐！',
+        mask: true
+      })
+      return
+    }
+    const that = this
+    user.onBuy(id).then(res => {
+      wx.requestPayment({
+        timeStamp: res.timeStamp.toString(),
+        nonceStr: res.nonceStr,
+        package: 'prepay_id=' + res.prepay_id,
+        signType: res.signType,
+        paySign: res.paySign,
+        success() {
+          wx.showToast({
+            title: '购买成功！',
+            icon: 'success',
+            success: (result)=>{
+              that.onClose()
+            },
+          });
+        },
+        fail(err) {
+          console.log(err)
+        }
+      });
+    })
+  },
+  // 重新绑定
+  selectStore(e) {
+    const {type, item} = e.currentTarget.dataset
+    const formData = {
+      shop_id: item.shop_id,
+      mobile: item[this.data.typesMobile[type]]
+    }
+    this.setData({
+      type,
+      formData: formData,
+      platformShow: true
+    })
+  },
+  onClosePlatform() {
+    this.setData({
+      platformShow: false
     })
   },
   formInputChange(e) {
@@ -165,56 +239,73 @@ Page({
         [`formData.${field}`]: e.detail.value
     })
   },
-  toCall() {
-    wx.makePhoneCall({
-      phoneNumber: this.data.phone,
-      success: function () {
-        console.log('成功拨打电话')
-      }
+  getCode() {
+    this.data.countDown = 60
+    this.countdown()
+    user.getCode(this.data.formData.mobile, this.data.type).then(res => {
+      this.data.typeData[this.data.type] = res
+    }).catch(err => {
+      wx.showToast({
+        title: err,
+        icon: err.length > 7 ? 'none' : 'error',
+        duration: 3000,
+        mask: true
+      });
     })
   },
+  /* 1分钟倒计时 */
+  countdown() {
+    clearTimeout(this.data.timer)
+    // 渲染倒计时时钟
+    this.setData({
+      countDown: this.data.countDown
+    });
+    if (this.data.countDown <= 0) {
+      this.setData({
+        countDown: ''
+      });
+      // timeout则跳出递归
+      return;
+    }
+    this.data.timer = setTimeout(() => {
+      // 放在最后--
+      this.data.countDown -= 1;
+      this.countdown();
+    }, 1000)
+  },
   formSubmit(e) {
-    const {mtId, elemeId} = this.data.formData
     this.selectComponent('#form').validate((valid, errors) => {
-      if (!valid || (!mtId && !elemeId)) {
-        if (!errors) {
-          wx.showToast({
-            icon: 'error',
-            title: '请填写店铺ID'
-          })
-        }
-        const firstError = Object.keys(errors)
-        if (firstError.length) {
-          wx.showToast({
-            icon: 'error',
-            title: errors[firstError[0]].message
-          })
-        }
-      } else {
+      if (valid) {
         this.onHttpSubmit()
       }
     })
   },
   onHttpSubmit() {
-    const {name, code, mtId, elemeId} = this.data.formData
-    user.applyTest({
-      shop_name: name,
-      code,
-      mt_account_id: mtId,
-      eleme_account_id: elemeId
+    this.setData({
+      isSubmit: true
+    })
+    user.onAuthorize({
+      ...this.data.formData,
+      ...this.data.typeData[this.data.type]
     }).then(() => {
       const that = this
+      this.setData({
+        isSubmit: false
+      })
       wx.showToast({
-        title: '已成功提交申请',
+        title: '提交成功!',
         icon: 'success',
         duration: 2000,
         success: () => {
           setTimeout(() => {
-            that.onClose()
+            that.onClosePlatform()
           }, 2000)
         }
       });
     }).catch(err => {
+      this.setData({
+        isSubmit: false
+      })
       wx.showToast({
         title: err,
         icon: 'error',
@@ -233,10 +324,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      isFirstBind: !!this.data.firstId,
-      isSecondBind: !!this.data.secondId
-    })
+    app.setTabBar(this, 2)
   },
 
   /**
@@ -250,6 +338,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    clearTimeout(this.data.timer)
   },
 
   /**

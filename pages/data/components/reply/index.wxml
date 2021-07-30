@@ -16,13 +16,12 @@
     <view class="info-list df flex-column jc-center">
       <text>{{ lists2['0'] }}</text>
       <text>{{ lists2['1'] }}</text>
-      <view class="search-box" bind:tap="onSearch" data-type="eleme">
+      <view class="search-box" bind:tap="onSearch" data-type="elem">
         <image class="icon-search" src="/images/search.png" mode="aspectFit" />
         <text>查询差评信息</text>
       </view>
     </view>
   </view>
-  <view class="tip" wx:if="{{isTip}}">您的店铺已掉线，请联系您的运营组</view>
   <view wx:if="{{!switch}}" class="df-auto close-tip">自动回评功能已关闭</view>
 </view>
 <button class="btn" hover-class="button-hover" bind:tap="openReply">设置评价回复内容</button>
@@ -77,7 +76,7 @@
 </mp-dialog>
 <!-- 评价回复内容弹出框 -->
 <mp-dialog ext-class="dialog" show="{{dialogShow}}">
-  <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
+  <image class="dialog-bg" src="/images/dialog_bg3.png" mode="aspectFill"/>
   <view class="dialog-container">
     <view class="dialog-header text-left">
       <text class="dialog-title">回复内容设置</text>

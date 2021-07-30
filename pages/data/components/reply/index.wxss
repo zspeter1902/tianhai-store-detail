@@ -1,12 +1,12 @@
 .info {
   position: relative;
   padding-top: 30rpx;
-  padding-bottom: 40rpx;
+  padding-bottom: 24rpx;
   border-radius: 8rpx 8rpx 4rpx 4rpx;
 }
 .info-list-box {
   position: relative;
-  padding: 0 26rpx;
+  padding: 0 22rpx;
   font-size: 28rpx;
   line-height: 40rpx;
 }
@@ -14,7 +14,7 @@
   content: '';
   position: absolute;
   right: 0;
-  top: 28rpx;
+  top: 26rpx;
   bottom: 0;
   width: 1rpx;
   background-color: #dedede;
@@ -34,7 +34,7 @@
   margin-top: 70rpx;
   margin-bottom: 10rpx;
   font-size: 30rpx;
-  color: #CA6FFF;
+  color: #4037CF;
   line-height: 42rpx;
 }
 .search-box .icon-search {
@@ -46,7 +46,7 @@
   width: 100% !important;
   margin: 20rpx 0;
   padding: 20rpx;
-  background-color: #CA6FFF;
+  background-color: #4037CF;
   color: #fff;
   font-weight: normal;
   border-radius: 8rpx;
@@ -54,19 +54,6 @@
   line-height: 40rpx;
 }
 
-.tip {
-  position: absolute;
-  top: 100rpx;
-  left: 0;
-  width: 100%;
-  padding: 30rpx;
-  line-height: 60rpx;
-  color: #fff;
-  font-size: 32rpx;
-  font-family: '黑体';
-  font-weight: bold;
-  background-color: #EB5353;
-}
 .close-tip {
   padding: 40rpx 20rpx;
   color: #999
@@ -120,7 +107,7 @@
   font-size: 28rpx;
   line-height: 50rpx;
   color: #fff;
-  background-color: #CA6FFF;
+  background-color: #4037CF;
 }
 .result-list .identification::after {
   content: '';
@@ -129,7 +116,7 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  border-left: 20rpx solid #CA6FFF;
+  border-left: 20rpx solid #4037CF;
   border-right: 20rpx solid transparent;
   border-top: 25rpx solid transparent;
   border-bottom: 25rpx solid transparent;
@@ -155,7 +142,7 @@
 }
 .result-tel {
   margin-left: 20rpx;
-  color: #CA6FFF;
+  color: #4037CF;
 }
 .result-tip-text {
   margin-left: 6rpx;
@@ -198,19 +185,7 @@
   font-family: '黑体';
 }
 /* 弹窗 */
-.dialog-container {
-  position: relative;
-  z-index: 2;
-}
-.dialog-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 .dialog-header {
-  position: relative;
   margin-bottom: 30rpx;
 }
 .dialog-content {
@@ -222,14 +197,7 @@
   overflow: hidden;
 }
 .dialog-title {
-  display: inline-block;
   margin: 0 4rpx;
-  color: #fff;
-  font-size: 50rpx;
-  line-height: 70rpx;
-  font-weight: 600;
-  text-shadow: 0 3rpx 3rpx #b04aec;
-  font-family: '黑体';
 }
 .dialog-textarea {
   width: 100%;
@@ -253,7 +221,7 @@
   font-family: '黑体';
   border-radius: 0;
   line-height: 40rpx;
-  background-color: #F7E8FF;
+  background-color: #EFEEFF;
 }
 .dialog-footer {
   margin-top: 60rpx;
@@ -267,7 +235,7 @@
   font-family: '黑体';
   border-radius: 0;
   line-height: 40rpx;
-  background-color: #F7E8FF;
+  background-color: #EFEEFF;
 }
 .dialog-btn-switch {
   width: 130rpx !important;

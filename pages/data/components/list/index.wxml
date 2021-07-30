@@ -16,12 +16,12 @@
       </view>
     </view>
   </view>
-  <view wx:else class="df-auto tip">自动出单已关闭</view>
+  <view wx:else class="df-auto close-tip">自动出单已关闭</view>
 </view>
 <button class="btn" hover-class="button-hover" bind:tap="openTime">设置出单时间</button>
 <!-- 弹出框 -->
 <mp-dialog ext-class="dialog" show="{{dialogShow}}">
-  <image class="dialog-bg" src="/images/dialog_bg.png" mode="aspectFill"/>
+  <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
   <view class="dialog-container">
     <view class="dialog-header text-left">
       <text class="dialog-title">时间设置</text>

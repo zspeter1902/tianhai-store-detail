@@ -11,14 +11,11 @@ const user = new userModel()
 Page({
   data: {
     // 骨架屏相关
-    showSkeleton: true,
     base: app.globalData.picUrl,
     loading: true,
-    info: {},
+    lists: [],
+    shopId: null,
     tabs: [
-      {
-        title: '店铺详情'
-      },
       {
         title: '出单详情'
       },
@@ -34,14 +31,16 @@ Page({
     // 顶部条
     isBar: false,
     viewHeight: 0,
-    isRefresh: false
+    isRefresh: false,
+    isTip: false,
   },
   //options(Object)
   onLoad: function(options){
     // 获取信息
-    this.getBase()
+    this.getHeight()
+    this.getList()
   },
-  getBase() {
+  getHeight() {
     let query = wx.createSelectorQuery()
     query.select('.view-base').boundingClientRect(rect => {
       let height = rect.height
@@ -49,26 +48,58 @@ Page({
         viewHeight: height
       })
     }).exec()
-    Login.checkLogin(() => {
-      user.getBase().then(res => {
-        this.setData({
-          info: res.data,
-          loading: false
-        })
-      }).catch(err => {
+  },
+  getList() {
+    user.getShopAccount().then(res => {
+      this.setData({
+        loading: false,
+      })
+      if (!res.data.length) {
         wx.showToast({
-          title: err,
-          icon: 'error',
+          title: '请先绑定店铺',
+          icon: 'none',
           duration: 3000,
+          mask: true,
           success: () => {
             setTimeout(() => {
-              wx.switchTab({
-                url: '/pages/my/index'
-              });
+              wx.navigateTo({
+                url: '/pages/authorization/index',
+              })
             }, 3000)
           }
         });
+        return
+      }
+      this.setData({
+        lists: res.data,
+        shopId: res.data[0].shop_id
       })
+    })
+  },
+  getBase(e) {
+    Login.checkLogin(() => {
+      this.setData({
+        shopId: this.data.lists[e.detail.index].shop_id
+      })
+    })
+  },
+  onLink() {
+    // 单店铺跳转重新登录
+    this.setData({
+      isTip: false
+    })
+    wx.switchTab({
+      url: '/pages/my/index',
+      success: (result)=>{
+
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+  onTip(e) {
+    this.setData({
+      isTip: e.detail.tip
     })
   },
   onChangeActive(e) {
@@ -80,6 +111,7 @@ Page({
   onReady: function() {
   },
   onShow: function() {
+    app.setTabBar(this, 0)
     const token = wx.getStorageSync('token');
     if (!token) {
       this.setData({

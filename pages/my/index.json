@@ -1,8 +1,11 @@
 {
   "navigationBarTitleText": "我的",
   "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon",
+    "platform": "/components/platform/index",
     "mp-loading": "weui-miniprogram/loading/loading",
+    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
+    "mp-tabs": "@miniprogram-component-plus/tabs",
+    "mp-icon": "weui-miniprogram/icon/icon",
     "mp-dialog": "weui-miniprogram/dialog/dialog",
     "mp-form": "weui-miniprogram/form/form",
     "mp-cells": "weui-miniprogram/cells/cells",

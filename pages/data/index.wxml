@@ -3,7 +3,9 @@
 <!-- 自定义顶部条 -->
 <custom custom-class="{{isBar ? 'bg-white' : ''}}" />
 <!-- 基本信息 -->
-<base class="view-base" info="{{info}}" />
+<view class="view-base">
+  <base list="{{lists}}" bind:select="getBase" />
+</view>
 <!-- 数据展示 -->
 <view class="nav-tabs">
   <tabs list="{{tabs}}" bind:change="onChangeActive">
@@ -11,23 +13,23 @@
   <view class="tabs-content">
     <block wx:for="{{tabs}}" wx:key="title">
       <view hidden="{{!(active == index)}}">
-        <!-- 店铺详情 -->
-        <view wx:if="{{index === 0}}">
-          <store shop-name="{{info.shop_name}}" />
-        </view>
         <!-- 出单详情 -->
-        <view wx:if="{{index === 1}}">
-          <list shop-name="{{info.shop_name}}" />
+        <view wx:if="{{index === 0}}">
+          <list shop-id="{{shopId}}" bind:tip="onTip" />
         </view>
         <!-- 评价回复 -->
-        <view wx:if="{{index === 2}}">
-          <reply shop-name="{{info.shop_name}}" />
+        <view wx:if="{{index === 1}}">
+          <reply shop-id="{{shopId}}" />
         </view>
         <!-- 智能推广 -->
-        <view wx:if="{{index === 3}}">
-          <extension shop-name="{{info.shop_name}}" />
+        <view wx:if="{{index === 2}}">
+          <extension shop-id="{{shopId}}" />
         </view>
       </view>
     </block>
+
   </view>
+</view>
+<view wx:if="{{isTip}}" class="tip-box df ai-center">
+  <view class="tip">您的店铺已掉线，<button plain class="mainColor link" bind:tap="onLink">点击跳转重新登录</button></view>
 </view>

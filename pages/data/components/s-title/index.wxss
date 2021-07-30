@@ -1,6 +1,6 @@
 .custom-title {
   padding-left: 10rpx;
-  border-left: 4rpx solid #ca6fff;
+  border-left: 4rpx solid #4037CF;
   font-size: 30rpx;
   color: #423889;
   line-height: 44rpx;

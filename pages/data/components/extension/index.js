@@ -13,7 +13,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    shopName: {
+    shopId: {
       type: String
     }
   },
@@ -38,7 +38,7 @@ Component({
     mtSetting: {},
     // 饿了么
     lists2: {},
-    elemeSetting: {},
+    elemSetting: {},
     dialogShow: false,
     formData: {
     },
@@ -197,7 +197,7 @@ Component({
     showIndex: null
   },
   observers: {
-    'shopName': function(newVal) {
+    'shopId': function(newVal) {
       if (newVal) {
         this.getInfo()
       }
@@ -220,10 +220,10 @@ Component({
   methods: {
     getInfo() {
       Login.checkLogin(() => {
-        user.getExtensionDetail().then(res => {
+        user.getExtensionDetail(this.data.shopId).then(res => {
           this.setData({
             lists: res.mt,
-            lists2: res.eleme
+            lists2: res.elem
           })
         })
       }, false)
@@ -236,7 +236,7 @@ Component({
     onOpen(e) {
       const {type} = e.currentTarget.dataset
       const id = this.data[type].shop_id
-      const attr = type === 'lists' ? 'mtSetting' : 'elemeSetting'
+      const attr = type === 'lists' ? 'mtSetting' : 'elemSetting'
       if (this.data[attr].shop_id) {
         this.setData({
           formData: this.data[attr],
@@ -350,9 +350,9 @@ Component({
         this.setData({
           mtSetting: formData
         })
-      } else if (this.data.elemeSetting.account_id === formData.account_id) {
+      } else if (this.data.elemSetting.account_id === formData.account_id) {
         this.setData({
-          elemeSetting: formData
+          elemSetting: formData
         })
       }
       for (let i = 0; i < formData.customList.length; i++) {
