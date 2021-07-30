@@ -25,7 +25,7 @@ Component({
     formData: {},
     rules: [{
       name: 'mobile',
-      rules: [{required: true, message: '请输入手机号！'}]
+      rules: [{required: true, message: '请输入手机号！'}, {mobile: true, message: '手机号格式有误！'}]
     }, {
       name: 'code',
       rules: [{required: true, message: '请输入验证码！'}]
@@ -75,17 +75,34 @@ Component({
       })
     },
     getCode() {
-      this.data.countDown = 60
-      this.countdown()
-      user.getCode(this.data.formData.mobile, this.data.type).then(res => {
-        this.data.typeData[this.data.type] = res
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: err.length > 7 ? 'none' : 'error',
-          duration: 3000,
-          mask: true
-        });
+      wx.showLoading({
+        title: '获取中...',
+        mask: true,
+      });
+      this.selectComponent('#form').validateField('mobile',(valid, errors) => {
+        if (valid) {
+          user.getCode(this.data.formData.mobile, this.data.type).then(res => {
+            wx.hideLoading();
+            // 设置1分钟倒计时
+            this.data.countDown = 60
+            this.countdown()
+            this.data.typeData[this.data.type] = res
+          }).catch(err => {
+            wx.showToast({
+              title: err,
+              icon: err.length > 7 ? 'none' : 'error',
+              duration: 3000,
+              mask: true
+            });
+          })
+        } else {
+          wx.showToast({
+            title: errors.message,
+            icon: errors.message.length > 7 ? 'none' : 'error',
+            duration: 3000,
+            mask: true
+          });
+        }
       })
     },
     /* 1分钟倒计时 */
