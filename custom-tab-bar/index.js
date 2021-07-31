@@ -45,12 +45,12 @@ Component({
   },
   lifetimes: {
       attached: function () {
-          // 在组件实例进入页面节点树时执行
-          const userData = wx.getStorageSync('userData');
-          // is_single_store 1 单店 2 多店
-          this.setData({
-            isPower: userData.is_single_store != 1
-          })
+        // 在组件实例进入页面节点树时执行
+        const userData = wx.getStorageSync('userData');
+        // is_single_store 1 单店 2 多店
+        this.setData({
+          isPower: userData ? userData.is_single_store != 1 : false
+        })
       },
       detached: function () {
           // 在组件实例被从页面节点树移除时执行

@@ -42,7 +42,7 @@
   </view>
   <!-- 绑定 -->
   <block wx:if="{{token}}">
-    <view wx:if="{{lists.length === 1}}" class="bg-white bind">
+    <view wx:if="{{lists.length <= 1}}" class="bg-white bind">
       <view class="title">店铺绑定</view>
       <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" list="{{lists[0]}}" />
     </view>

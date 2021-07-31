@@ -106,14 +106,15 @@ Page({
                 userData: wx.getStorageSync('userData'),
                 token: wx.getStorageSync('token')
               })
+              if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+                that.getTabBar().setData({
+                  isPower: this.data.userData.is_single_store != 1
+                })
+              }
               that.onLoad()
-              // wx.redirectTo({
-              //   url: '/pages/authorization/index'
-              // });
             });
           },
         });
-
       }
     })
   },
@@ -335,6 +336,7 @@ Page({
         success: () => {
           setTimeout(() => {
             that.onClosePlatform()
+            that.onLoad()
           }, 2000)
         }
       });
