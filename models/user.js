@@ -5,6 +5,17 @@ class userModel extends HTTP {
     super()
     this.userId = wx.getStorageSync('userId')
   }
+  // 获取用户信息
+  getUserInfo() {
+    const id = this.userId || wx.getStorageSync('userId');
+    return this.request({
+      url: 'user/getUserInfo',
+      method: 'post',
+      data: {
+        id
+      }
+    })
+  }
   // 平台帐号授权
   getCode(mobile, type) {
     return this.request({

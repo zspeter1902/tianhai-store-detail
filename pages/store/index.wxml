@@ -20,5 +20,5 @@
       </view>
     </view>
   </view>
-  <button class="btn" hover-class="button-hover" bindtap="onLink">新建店铺</button>
+  <button wx:if="{{token}}" class="btn" hover-class="button-hover" bindtap="onLink">新建店铺</button>
 </view>

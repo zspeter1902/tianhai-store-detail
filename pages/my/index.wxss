@@ -101,6 +101,7 @@
   width: 140rpx;
   height: 140rpx;
   border-radius: 8rpx;
+  margin-right: 0;
 }
 
 .button-hover {

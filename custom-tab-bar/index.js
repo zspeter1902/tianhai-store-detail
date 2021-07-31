@@ -46,8 +46,10 @@ Component({
   lifetimes: {
       attached: function () {
           // 在组件实例进入页面节点树时执行
+          const userData = wx.getStorageSync('userData');
+          // is_single_store 1 单店 2 多店
           this.setData({
-            isPower: true
+            isPower: userData.is_single_store != 1
           })
       },
       detached: function () {

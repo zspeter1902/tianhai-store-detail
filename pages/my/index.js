@@ -69,10 +69,21 @@ Page({
         userInfo,
         loading: true
       })
-      this.calcDay()
+      this.getUserInfo()
       this.getList()
       this.getVip()
     }
+  },
+  getUserInfo() {
+    user.getUserInfo().then(res => {
+      wx.setStorageSync('userData', res.user_info)
+      this.setData({
+        userData: res.user_info
+      })
+      this.calcDay()
+    }).catch(err => {
+      this.calcDay()
+    })
   },
   getUserProfile() {
     const that = this
@@ -119,7 +130,7 @@ Page({
     const ratio = Math.ceil((useDay * 100) / totalDay)
     // 更新数据
     this.setData({
-      useRatio: ratio,
+      useRatio: ratio >= 100 ? 100 : ratio,
       useDay: useDay
     })
   },
@@ -205,6 +216,7 @@ Page({
             title: '购买成功！',
             icon: 'success',
             success: (result)=>{
+              that.getUserInfo()
               that.onClose()
             },
           });
@@ -225,6 +237,7 @@ Page({
     this.setData({
       type,
       formData: formData,
+      countDown: '',
       platformShow: true
     })
   },
@@ -290,7 +303,7 @@ Page({
       if (valid) {
         this.onHttpSubmit()
       } else {
-        console.log(errors[0].message)
+        // console.log(errors[0].message)
         wx.showToast({
           title: errors[0].message,
           icon: errors[0].message.length > 7 ? 'none' : 'error',
@@ -304,8 +317,11 @@ Page({
     this.setData({
       isSubmit: true
     })
+    const user_id = wx.getStorageSync('userId');
     user.onAuthorize({
       ...this.data.formData,
+      type: this.data.type,
+      user_id,
       ...this.data.typeData[this.data.type]
     }).then(() => {
       const that = this

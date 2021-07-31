@@ -12,7 +12,8 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    shopId: Number
+    shopId: Number,
+    list: Object
   },
 
   /**
@@ -56,10 +57,17 @@ Component({
    */
   methods: {
     onOpen(e) {
-      const {type} = e.currentTarget.dataset
+      const {type, status} = e.currentTarget.dataset
+      // 在线状态 请求中止
+      if (status == 1) {
+        return
+      }
+      // 清除定时器(验证码)
+      clearTimeout(this.data.timer)
       this.setData({
         type,
-        formData: {},
+        'formData.code': null,
+        countDown: '',
         dialogShow: true
       })
     },
@@ -80,6 +88,7 @@ Component({
         mask: true,
       });
       this.selectComponent('#form').validateField('mobile',(valid, errors) => {
+        console.log(valid)
         if (valid) {
           user.getCode(this.data.formData.mobile, this.data.type).then(res => {
             wx.hideLoading();
@@ -140,9 +149,12 @@ Component({
       if (this.data.shopId) {
         shopIds['shop_id'] = this.data.shopId
       }
+      const user_id = wx.getStorageSync('userId');
       user.onAuthorize({
         ...this.data.formData,
         ...shopIds,
+        type: this.data.type,
+        user_id,
         ...this.data.typeData[this.data.type]
       }).then(() => {
         const that = this

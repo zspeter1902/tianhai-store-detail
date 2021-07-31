@@ -26,7 +26,7 @@
           <view class="record-tip">
             已使用本产品{{useDay}}天
           </view>
-          <progress class="progress" percent="{{useRatio}}" border-radius="3rpx" stroke-width="14rpx" active activeColor="#ffffff" backgroundColor="#392FD3" />
+          <progress wx:if="{{userData.expire_date}}" class="progress" percent="{{useRatio}}" border-radius="3rpx" stroke-width="14rpx" active activeColor="#ffffff" backgroundColor="#392FD3" />
         </view>
         <view class="text-right">
           <button
@@ -44,7 +44,7 @@
   <block wx:if="{{token}}">
     <view wx:if="{{lists.length === 1}}" class="bg-white bind">
       <view class="title">店铺绑定</view>
-      <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" />
+      <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" list="{{lists[0]}}" />
     </view>
     <view wx:else class="bind-more">
       <view class="title">店铺列表</view>
@@ -60,6 +60,7 @@
             <text class="store-status df-fixed {{item.mt_is_online ? 'on' : ''}}">{{ item.mt_account_id ? (item.mt_is_online ? '在线' : '离线') : ''}}</text>
             <view class="df-fixed store-btns">
               <button wx:if="{{item.mt_account_id && !item.mt_is_online}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['美团']}}" data-item="{{item}}">重新授权</button>
+              <button wx:if="{{!item.mt_account_id}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['美团']}}" data-item="{{item}}">绑定帐号</button>
             </view>
           </view>
           <!-- 饿了么 -->
@@ -71,6 +72,7 @@
             <text class="store-status df-fixed {{item.elem_is_online ? 'on' : ''}}">{{ item.elem_account_id ? (item.elem_is_online ? '在线' : '离线') : ''}}</text>
             <view class="df-fixed store-btns">
               <button wx:if="{{item.elem_account_id && !item.elem_is_online}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['饿了么']}}" data-item="{{item}}">重新授权</button>
+              <button wx:if="{{!item.elem_account_id}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['饿了么']}}" data-item="{{item}}">绑定帐号</button>
             </view>
           </view>
         </view>

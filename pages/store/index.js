@@ -47,6 +47,9 @@ Page({
    */
   onShow: function () {
     app.setTabBar(this, 1)
+    this.setData({
+      token: wx.getStorageSync('token')
+    })
     this.getInfo()
   },
 
