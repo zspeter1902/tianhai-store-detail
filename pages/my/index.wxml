@@ -42,48 +42,54 @@
   </view>
   <!-- 绑定 -->
   <block wx:if="{{token}}">
-    <view wx:if="{{lists.length <= 1}}" class="bg-white bind">
+    <view wx:if="{{userData.is_single_store == 1}}" class="bg-white bind">
       <view class="title">店铺绑定</view>
-      <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" list="{{lists[0]}}" />
+      <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" list="{{lists[0]}}" bind:success="onSuccess" />
     </view>
-    <view wx:else class="bind-more">
+    <view wx:if="{{userData.is_single_store == 2}}" class="bind-more">
       <view class="title">店铺列表</view>
-      <view class="store-lists">
+      <scroll-view class="store-lists" scroll-y style="height: calc(100vh - 84rpx - 372rpx - 30rpx - 136rpx - 40rpx - 40rpx - {{statusBarHeight}}px);">
         <view wx:for="{{lists}}" class="store-list bg-white">
           <view class="store-name secondaryColor ellipsis">{{item.shop_name}}</view>
           <!-- 美团 -->
           <view class="df ai-center jc-between item">
-            <view class="df-auto secondaryColor">
+            <view class="df-auto df secondaryColor">
               <image class="logo" src="/images/meituan.png" mode="aspectFit"></image>
-              <text>帐号：{{item.mt_account_id || "暂无"}}</text>
+              <view class="df flex-column jc-center ai-start">
+                <text>帐号：{{item.mt_account_id || "暂无"}}</text>
+                <text class="store-status df-fixed {{item.mt_is_online ? 'on' : ''}}">{{ item.mt_account_id ? (item.mt_is_online ? '在线' : '离线') : ''}}</text>
+              </view>
             </view>
-            <text class="store-status df-fixed {{item.mt_is_online ? 'on' : ''}}">{{ item.mt_account_id ? (item.mt_is_online ? '在线' : '离线') : ''}}</text>
-            <view class="df-fixed store-btns">
+            <view class="df-fixed df flex-column jc-center ai-start store-btns">
+              <button wx:if="{{item.mt_account_id}}" class="store-btn secondaryColor" bind:tap="cancelStore" data-type="{{types['美团']}}" data-item="{{item}}">取消授权</button>
               <button wx:if="{{item.mt_account_id && !item.mt_is_online}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['美团']}}" data-item="{{item}}">重新授权</button>
               <button wx:if="{{!item.mt_account_id}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['美团']}}" data-item="{{item}}">绑定帐号</button>
             </view>
           </view>
           <!-- 饿了么 -->
           <view class="df ai-center jc-between item">
-            <view class="df-auto secondaryColor">
+            <view class="df-auto df secondaryColor">
               <image class="logo" src="/images/eleme.png" mode="aspectFit"></image>
-              <text>帐号：{{item.elem_account_id || "暂无"}}</text>
+              <view class="df flex-column jc-center ai-start">
+                <text>帐号：{{item.elem_account_id || "暂无"}}</text>
+                <text class="store-status df-fixed {{item.elem_is_online ? 'on' : ''}}">{{ item.elem_account_id ? (item.elem_is_online ? '在线' : '离线') : ''}}</text>
+              </view>
             </view>
-            <text class="store-status df-fixed {{item.elem_is_online ? 'on' : ''}}">{{ item.elem_account_id ? (item.elem_is_online ? '在线' : '离线') : ''}}</text>
-            <view class="df-fixed store-btns">
+            <view class="df-fixed df flex-column jc-center ai-start store-btns">
+              <button wx:if="{{item.elem_account_id}}" class="store-btn secondaryColor" bind:tap="cancelStore" data-type="{{types['饿了么']}}" data-item="{{item}}">取消授权</button>
               <button wx:if="{{item.elem_account_id && !item.elem_is_online}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['饿了么']}}" data-item="{{item}}">重新授权</button>
               <button wx:if="{{!item.elem_account_id}}" class="store-btn secondaryColor" bind:tap="selectStore" data-type="{{types['饿了么']}}" data-item="{{item}}">绑定帐号</button>
             </view>
           </view>
         </view>
-      </view>
+      </scroll-view>
     </view>
   </block>
 </view>
 
 <!-- 绑定 -->
 <!-- 弹出框 -->
-<mp-dialog ext-class="dialog" show="{{platformShow}}">
+<mp-dialog ext-class="dialog" mask-closable="{{false}}" show="{{platformShow}}">
   <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
   <view class="dialog-container">
     <view class="dialog-header text-left">

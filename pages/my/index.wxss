@@ -50,7 +50,7 @@
   padding: 0;
   margin-top: 55rpx;
   width: 180rpx;
-  font-size: 20rpx;
+  font-size: 24rpx;
   line-height: 60rpx;
   font-family: '黑体';
   border-radius: 30rpx;
@@ -198,29 +198,27 @@
 }
 .store-list {
   margin-bottom: 30rpx;
-  padding: 20rpx 40rpx;
+  padding: 20rpx 40rpx 10rpx;
   line-height: 48rpx;
   font-size: 26rpx;
   border-radius: 8rpx;
 }
 .store-list .item {
-  margin-bottom: 20rpx;
+  margin-bottom: 30rpx;
 }
-.logo {
-  width: 60rpx;
-  height: 60rpx;
+.store-list .logo {
+  width: 120rpx;
+  height: 120rpx;
   margin-right: 20rpx;
 }
 .store-name {
-  margin-top: 10rpx;
-  font-size: 30rpx;
+  margin-top: 4rpx;
+  font-size: 32rpx;
   margin-bottom: 20rpx;
 }
 .store-status {
-  margin-left: 20rpx;
-  margin-right: 50rpx;
+  margin-top: 16rpx;
   color: #E63232;
-  line-height: 42rpx;
 }
 .store-status.on {
   color: #5BF452;
@@ -240,7 +238,9 @@
   background-color: transparent;
   vertical-align: top;
 }
-
+.store-btn + .store-btn {
+  margin-top: 16rpx !important;
+}
 /*  */
 .submit-hover {
   opacity: 0.8;

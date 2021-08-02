@@ -167,6 +167,7 @@ Component({
           duration: 2000,
           success: () => {
             setTimeout(() => {
+              that.triggerEvent('success')
               that.onClose()
             }, 2000)
           }

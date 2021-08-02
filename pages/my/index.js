@@ -21,7 +21,7 @@ Page({
       {
         type: 'primary',
         className: '',
-        text: '立即支付99元',
+        text: '立即支付',
         value: 0
       }
     ],
@@ -36,6 +36,10 @@ Page({
     typesMobile: {
       '1': 'mt_phone',
       '2': 'elem_phone'
+    },
+    typesId: {
+      '1': 'mt_account_id',
+      '2': 'elem_account_id'
     },
     type: null,
     platformShow: false,
@@ -187,7 +191,8 @@ Page({
   vipCheck(e) {
     const {list} = e.currentTarget.dataset
     this.setData({
-      vipItem: list
+      vipItem: list,
+      [`buttons[0].text`]: '立即支付' + list.amount + '元'
     })
   },
   onPay(e) {
@@ -228,6 +233,9 @@ Page({
       });
     })
   },
+  onSuccess() {
+    this.onLoad()
+  },
   // 重新绑定
   selectStore(e) {
     const {type, item} = e.currentTarget.dataset
@@ -240,6 +248,27 @@ Page({
       formData: formData,
       countDown: '',
       platformShow: true
+    })
+  },
+  // 取消授权
+  cancelStore(e) {
+    const that = this
+    const {type, item} = e.currentTarget.dataset
+    const data = {
+      shop_id: item.shop_id,
+      [this.data.typesId[type]]: item[[this.data.typesId[type]]]
+    }
+    user.cancelAuthorize(data).then(res => {
+      wx.showToast({
+        title: '取消成功！',
+        icon: 'none',
+        duration: 2000,
+        success: () => {
+          setTimeout(() => {
+            that.onLoad()
+          }, 2000)
+        }
+      });
     })
   },
   onClosePlatform() {

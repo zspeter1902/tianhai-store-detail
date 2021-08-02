@@ -11,7 +11,7 @@
   </view>
 </view>
 <!-- 弹出框 -->
-<mp-dialog ext-class="dialog" show="{{dialogShow}}">
+<mp-dialog ext-class="dialog" mask-closable="{{false}}" show="{{dialogShow}}">
   <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
   <view class="dialog-container">
     <view class="dialog-header text-left">

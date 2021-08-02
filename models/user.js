@@ -34,6 +34,14 @@ class userModel extends HTTP {
       data
     })
   }
+  // 取消授权
+  cancelAuthorize(data) {
+    return this.request({
+      url: 'author/cancelAuthorization',
+      method: 'post',
+      data
+    })
+  }
   // 店铺基础数据
   // getBase() {
   //   const userId = wx.getStorageSync('userId')
