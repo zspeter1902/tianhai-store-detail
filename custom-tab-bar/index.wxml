@@ -6,7 +6,7 @@
       <view style="color: {{selected === index ? selectedColor : color}}" class="special-text tab-text">{{item.text}}</view>
     </view>
     <view wx:else class="tab-bar-item" data-path="{{item.pagePath}}" data-click="{{ item.isSpecial }}" data-index="{{index}}" bindtap="switchTab">
-      <image class="item-image" mode="aspectFit" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
+      <image webp="true" class="item-image" mode="aspectFit" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
       <view class="tab-text" style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</view>
     </view>
   </block>
