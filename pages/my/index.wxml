@@ -41,12 +41,13 @@
     </view>
   </view>
   <!-- 绑定 -->
+  <!-- is_single_store 1 单店 2 多店 -->
   <block wx:if="{{token}}">
-    <view wx:if="{{userData.is_single_store == 1}}" class="bg-white bind">
+    <view wx:if="{{!lists.length}}" class="bg-white bind">
       <view class="title">店铺绑定</view>
       <platform custom-class="my-platform" shop-id="{{lists[0].shop_id}}" list="{{lists[0]}}" bind:success="onSuccess" />
     </view>
-    <view wx:if="{{userData.is_single_store == 2}}" class="bind-more">
+    <view wx:else class="bind-more">
       <view class="title">店铺列表</view>
       <scroll-view class="store-lists" scroll-y style="height: calc(100vh - 84rpx - 372rpx - 30rpx - 136rpx - 40rpx - 40rpx - {{statusBarHeight}}px);">
         <view wx:for="{{lists}}" class="store-list bg-white">

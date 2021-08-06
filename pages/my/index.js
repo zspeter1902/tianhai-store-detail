@@ -74,7 +74,7 @@ Page({
         loading: true
       })
       this.getUserInfo()
-      this.getList()
+
       this.getVip()
     }
   },
@@ -217,12 +217,13 @@ Page({
         package: 'prepay_id=' + res.prepay_id,
         signType: res.signType,
         paySign: res.paySign,
-        success() {
+        success(res) {
           wx.showToast({
             title: '购买成功！',
             icon: 'success',
             success: (result)=>{
               that.getUserInfo()
+              that.getList()
               that.onClose()
             },
           });
@@ -234,7 +235,7 @@ Page({
     })
   },
   onSuccess() {
-    this.onLoad()
+    this.getList()
   },
   // 重新绑定
   selectStore(e) {
@@ -264,9 +265,7 @@ Page({
         icon: 'none',
         duration: 2000,
         success: () => {
-          setTimeout(() => {
-            that.onLoad()
-          }, 2000)
+          that.onLoad()
         }
       });
     })
@@ -363,9 +362,9 @@ Page({
         icon: 'success',
         duration: 2000,
         success: () => {
+          that.onLoad()
           setTimeout(() => {
             that.onClosePlatform()
-            that.onLoad()
           }, 2000)
         }
       });
@@ -392,6 +391,7 @@ Page({
    */
   onShow: function () {
     app.setTabBar(this, 2)
+    this.getList()
   },
 
   /**
