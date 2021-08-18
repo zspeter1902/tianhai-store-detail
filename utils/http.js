@@ -52,6 +52,10 @@ class HTTP {
               title: res.data.msg,
               duration: 6000,
               success: () => {
+                if (pages[pages.length - 1].route == 'pages/my/index') {
+                  reject(res.data.msg)
+                  return
+                }
                 setTimeout(() => {
                   wx.switchTab({
                     url: '/pages/my/index'

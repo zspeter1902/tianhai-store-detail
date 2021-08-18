@@ -145,6 +145,10 @@ Page({
         loading: false,
         lists: res.data
       })
+    }).catch(() => {
+      this.setData({
+        loading: false
+      })
     })
   },
 
