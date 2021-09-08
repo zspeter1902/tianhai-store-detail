@@ -22,7 +22,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    switch: false,
+    switch: true,
     lists: {},
     lists2: {},
     dialogShow: false,

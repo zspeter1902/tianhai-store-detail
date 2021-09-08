@@ -22,7 +22,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    switch: false,
+    switch: true,
     lists: [],
     lists2: [],
     dialogShow: false,
@@ -99,6 +99,7 @@ Component({
     },
     onSwitch(e) {
       const msg = e.detail ? '打开' : '关闭'
+      const data = this.data.formData
       wx.showModal({
         title: `您确定${msg}自动出单功能吗？`,
         content: '',
@@ -109,7 +110,7 @@ Component({
         confirmColor: '#4037CF',
         success: (result) => {
           if(result.confirm){
-            this.setAutoList(e.detail)
+            this.setAutoList(e.detail, data.time, data.mealTime)
           } else {
             this.setData({
               switch: !e.detail

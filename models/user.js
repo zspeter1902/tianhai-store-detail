@@ -96,7 +96,7 @@ class userModel extends HTTP {
     })
   }
   // 设置店铺出单时间
-  setShopTime(shop_id, status, time = 15, mealTime = 60) {
+  setShopTime(shop_id, status, time = 5, mealTime = 60) {
     return this.request({
       url: 'shop/setOutOrderTime',
       method: 'post',
