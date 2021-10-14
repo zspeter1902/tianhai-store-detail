@@ -35,7 +35,7 @@ Component({
     loginActiveTab: 0,
     formDataOther: {},
     rulesOther: [{
-      name: 'shop_id',
+      name: 'account_id',
       rules: [{required: true, message: '请输入ID号！'}]
     }],
     type: null,
@@ -227,10 +227,15 @@ Component({
       this.setData({
         isSubmit: true
       })
+      const shopIds = {}
+      if (this.data.shopId) {
+        shopIds['shop_id'] = this.data.shopId
+      }
       const user_id = wx.getStorageSync('userId');
       user.onAuthorizeId({
         ...this.data.formDataOther,
         type: this.data.type,
+        ...shopIds,
         user_id
       }).then(() => {
         const that = this

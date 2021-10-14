@@ -56,7 +56,7 @@ Page({
     loginActiveTab: 0,
     formDataOther: {},
     rulesOther: [{
-      name: 'shop_id',
+      name: 'account_id',
       rules: [{required: true, message: '请输入ID号！'}]
     }],
     typeData: {},
@@ -207,7 +207,8 @@ Page({
         })
       }
       this.setData({
-        tabs
+        tabs,
+        loading: false
       })
     })
   },
@@ -267,9 +268,13 @@ Page({
       shop_id: item.shop_id,
       mobile: item[this.data.typesMobile[type]]
     }
+    const formDataOther = {
+      shop_id: item.shop_id
+    }
     this.setData({
       type,
       formData: formData,
+      formDataOther: formDataOther,
       countDown: '',
       platformShow: true
     })
@@ -288,7 +293,8 @@ Page({
         icon: 'none',
         duration: 2000,
         success: () => {
-          that.onLoad()
+          // that.onLoad()
+          that.onShow()
         }
       });
     })
@@ -391,7 +397,8 @@ Page({
         icon: 'success',
         duration: 2000,
         success: () => {
-          that.onLoad()
+          // that.onLoad()
+          that.onShow()
           setTimeout(() => {
             that.onClosePlatform()
           }, 2000)
@@ -442,7 +449,8 @@ Page({
         icon: 'success',
         duration: 2000,
         success: () => {
-          that.onLoad()
+          // that.onLoad()
+          that.onShow()
           setTimeout(() => {
             that.onClosePlatform()
           }, 2000)

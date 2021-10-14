@@ -60,8 +60,8 @@
           <view slot="tab-content-1">
             <mp-form id="formOther" rules="{{rulesOther}}" models="{{formDataOther}}">
               <mp-cells ext-class="my-cells cell-margin">
-                <mp-cell prop="shop_id">
-                  <input bindinput="formInputChangeOther" data-field="shop_id" value="{{formDataOther.shop_id}}" placeholder="请输入ID号" class="weui-input" />
+                <mp-cell prop="account_id">
+                  <input bindinput="formInputChangeOther" data-field="account_id" value="{{formDataOther.account_id}}" placeholder="请输入ID号" class="weui-input" />
                 </mp-cell>
                 <mp-cell ext-class="tip">ID号授权仅限合作商家</mp-cell>
               </mp-cells>
