@@ -196,3 +196,28 @@ button[type=primary] {
   min-height: 66rpx;
   line-height: 66rpx;
 }
+
+.dialog-tab-login .weui-tabs-bar__wrp {
+  background: transparent !important;
+}
+.dialog-tab-login .weui-tabs-swiper-login {
+  height: 320rpx;
+  margin-top: 30rpx;
+}
+.dialog-tab-login .weui-tabs-swiper-login .my-cells {
+  height: 200rpx
+}
+.dialog-tab-login .weui-tabs-swiper-login .cell-margin .weui-cell{
+  margin-top: 30rpx
+}
+.dialog-tab-login .weui-tabs-swiper-login .my-cells .tip {
+  background-color: transparent;
+  color: #fff;
+}
+.dialog-tab-login .login-tabs {
+  margin-left: 30rpx;
+  opacity: 0.6
+}
+.dialog-tab-login .login-tabs.selected {
+  opacity: 1
+}

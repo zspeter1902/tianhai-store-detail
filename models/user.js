@@ -34,6 +34,13 @@ class userModel extends HTTP {
       data
     })
   }
+  onAuthorizeId(data) {
+    return this.request({
+      url: 'author/shopIdAuthorization',
+      method: 'post',
+      data
+    })
+  }
   // 取消授权
   cancelAuthorize(data) {
     return this.request({

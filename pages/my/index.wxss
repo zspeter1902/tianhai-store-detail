@@ -281,11 +281,38 @@
   text-shadow: 0 3rpx 3rpx #4037CF;
   font-family: '黑体';
 }
+/* tabs */
+.login-tabs {
+
+}
 /* 更改弹窗默认样式 */
 .my-cell-btn {
   margin-top: 40rpx;
 }
-
+.weui-tabs-bar__wrp {
+  background: transparent !important;
+}
+.weui-tabs-swiper-login {
+  height: 320rpx;
+  margin-top: 30rpx;
+}
+.weui-tabs-swiper-login .my-cells {
+  height: 200rpx
+}
+.weui-tabs-swiper-login .cell-margin .weui-cell{
+  margin-top: 30rpx
+}
+.weui-tabs-swiper-login .my-cells .tip {
+  background-color: transparent;
+  color: #fff;
+}
+.login-tabs {
+  margin-left: 30rpx;
+  opacity: 0.6
+}
+.login-tabs.selected {
+  opacity: 1
+}
 .btn-code {
   font-size: 26rpx;
   line-height: 38rpx;

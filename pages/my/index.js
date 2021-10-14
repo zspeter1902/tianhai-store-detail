@@ -14,7 +14,7 @@ Page({
     loading: false,
     userData: wx.getStorageSync('userData'),
     token: wx.getStorageSync('token'),
-    type: 'dot-gray', //dot-gray circle
+    loginType: 'dot-gray', //dot-gray circle
     userInfo: {},
     dialogShow: false,
     buttons: [
@@ -51,6 +51,13 @@ Page({
     }, {
       name: 'code',
       rules: [{required: true, message: '请输入验证码！'}]
+    }],
+    loginTab: [{title: '手机号授权'}, {title: 'ID授权'}],
+    loginActiveTab: 0,
+    formDataOther: {},
+    rulesOther: [{
+      name: 'shop_id',
+      rules: [{required: true, message: '请输入ID号！'}]
     }],
     typeData: {},
     // 选中待支付会员
@@ -101,12 +108,12 @@ Page({
           success: (result)=>{
             that.setData({
               loading: true,
-              type: 'circle'
+              loginType: 'circle'
             })
             Login.wxLogin(() => {
               that.setData({
                 loading: false,
-                type: 'dot-gray',
+                loginType: 'dot-gray',
                 userData: wx.getStorageSync('userData'),
                 token: wx.getStorageSync('token')
               })
@@ -168,10 +175,22 @@ Page({
       activeTab: index
     })
   },
+  onTabClickLogin(e) {
+    const index = e.detail.index
+    this.setData({
+      loginActiveTab: index
+    })
+  },
   onChange(e) {
     const index = e.detail.index
     this.setData({
       activeTab: index
+    })
+  },
+  onChangeLogin(e) {
+    const index = e.detail.index
+    this.setData({
+      loginActiveTab: index
     })
   },
   getVip() {
@@ -285,6 +304,12 @@ Page({
         [`formData.${field}`]: e.detail.value
     })
   },
+  formInputChangeOther(e) {
+    const {field} = e.currentTarget.dataset
+    this.setData({
+        [`formDataOther.${field}`]: e.detail.value
+    })
+  },
   getCode() {
     this.selectComponent('#form').validateField('mobile',(valid, errors) => {
       if (valid) {
@@ -356,6 +381,57 @@ Page({
       type: this.data.type,
       user_id,
       ...this.data.typeData[this.data.type]
+    }).then(() => {
+      const that = this
+      this.setData({
+        isSubmit: false
+      })
+      wx.showToast({
+        title: '提交成功!',
+        icon: 'success',
+        duration: 2000,
+        success: () => {
+          that.onLoad()
+          setTimeout(() => {
+            that.onClosePlatform()
+          }, 2000)
+        }
+      });
+    }).catch(err => {
+      this.setData({
+        isSubmit: false
+      })
+      wx.showToast({
+        title: err,
+        icon: 'error',
+        mask: true
+      });
+    })
+  },
+  formSubmitOther(e) {
+    this.selectComponent('#formOther').validate((valid, errors) => {
+      if (valid) {
+        this.onLoginOther()
+      } else {
+        // console.log(errors[0].message)
+        wx.showToast({
+          title: errors[0].message,
+          icon: errors[0].message.length > 7 ? 'none' : 'error',
+          duration: 3000,
+          mask: true
+        });
+      }
+    })
+  },
+  onLoginOther() {
+    this.setData({
+      isSubmit: true
+    })
+    const user_id = wx.getStorageSync('userId');
+    user.onAuthorizeId({
+      ...this.data.formDataOther,
+      type: this.data.type,
+      user_id
     }).then(() => {
       const that = this
       this.setData({
