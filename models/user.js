@@ -34,9 +34,18 @@ class userModel extends HTTP {
       data
     })
   }
+  // id授权
   onAuthorizeId(data) {
     return this.request({
       url: 'author/shopIdAuthorization',
+      method: 'post',
+      data
+    })
+  }
+  // 帐号密码授权
+  onAuthorizePassword(data) {
+    return this.request({
+      url: 'author/accountAuthorization',
       method: 'post',
       data
     })

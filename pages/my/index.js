@@ -52,12 +52,20 @@ Page({
       name: 'code',
       rules: [{required: true, message: '请输入验证码！'}]
     }],
-    loginTab: [{title: '手机号授权'}, {title: 'ID授权'}],
+    loginTab: [{title: '手机号授权'}, {title: 'ID授权'}, {title: '密码授权'}],
     loginActiveTab: 0,
     formDataOther: {},
     rulesOther: [{
       name: 'account_id',
       rules: [{required: true, message: '请输入ID号！'}]
+    }],
+    formDataPassword: {},
+    rulesPassword: [{
+      name: 'account',
+      rules: [{required: true, message: '请输入帐号！'}]
+    }, {
+      name: 'password',
+      rules: [{required: true, message: '请输入密码！'}]
     }],
     typeData: {},
     // 选中待支付会员
@@ -271,10 +279,14 @@ Page({
     const formDataOther = {
       shop_id: item.shop_id
     }
+    const formDataPassword = {
+      shop_id: item.shop_id
+    }
     this.setData({
       type,
       formData: formData,
       formDataOther: formDataOther,
+      formDataPassword: formDataPassword,
       countDown: '',
       platformShow: true
     })
@@ -307,13 +319,19 @@ Page({
   formInputChange(e) {
     const {field} = e.currentTarget.dataset
     this.setData({
-        [`formData.${field}`]: e.detail.value
+      [`formData.${field}`]: e.detail.value
     })
   },
   formInputChangeOther(e) {
     const {field} = e.currentTarget.dataset
     this.setData({
-        [`formDataOther.${field}`]: e.detail.value
+      [`formDataOther.${field}`]: e.detail.value
+    })
+  },
+  formInputChangePassword(e) {
+    const {field} = e.currentTarget.dataset
+    this.setData({
+      [`formDataPassword.${field}`]: e.detail.value
     })
   },
   getCode() {
@@ -437,6 +455,58 @@ Page({
     const user_id = wx.getStorageSync('userId');
     user.onAuthorizeId({
       ...this.data.formDataOther,
+      type: this.data.type,
+      user_id
+    }).then(() => {
+      const that = this
+      this.setData({
+        isSubmit: false
+      })
+      wx.showToast({
+        title: '提交成功!',
+        icon: 'success',
+        duration: 2000,
+        success: () => {
+          // that.onLoad()
+          that.onShow()
+          setTimeout(() => {
+            that.onClosePlatform()
+          }, 2000)
+        }
+      });
+    }).catch(err => {
+      this.setData({
+        isSubmit: false
+      })
+      wx.showToast({
+        title: err,
+        icon: 'error',
+        mask: true
+      });
+    })
+  },
+  formSubmitPassword(e) {
+    this.selectComponent('#formPassword').validate((valid, errors) => {
+      if (valid) {
+        this.onLoginPassword()
+      } else {
+        // console.log(errors[0].message)
+        wx.showToast({
+          title: errors[0].message,
+          icon: errors[0].message.length > 7 ? 'none' : 'error',
+          duration: 3000,
+          mask: true
+        });
+      }
+    })
+  },
+  onLoginPassword() {
+    this.setData({
+      isSubmit: true
+    })
+    const user_id = wx.getStorageSync('userId');
+    user.onAuthorizePassword({
+      ...this.data.formDataPassword,
       type: this.data.type,
       user_id
     }).then(() => {

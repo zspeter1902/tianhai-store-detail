@@ -75,6 +75,28 @@
               </view>
             </mp-form>
           </view>
+          <view slot="tab-content-2">
+            <mp-form id="formPassword" rules="{{rulesPassword}}" models="{{formDataPassword}}">
+              <mp-cells ext-class="my-cells">
+                <mp-cell prop="account">
+                  <input bindinput="formInputChangePassword" maxlength="{{24}}" data-field="account" value="{{formDataPassword.account}}" placeholder="请输入帐号" class="weui-input" />
+                </mp-cell>
+                <mp-cell prop="password">
+                  <input
+                   password
+                   maxlength="{{24}}" bindinput="formInputChangePassword" data-field="password" placeholder="请输入密码" class="weui-input" />
+                </mp-cell>
+              </mp-cells>
+              <view class="my-cell-btn">
+                <button
+                  loading="{{isSubmit}}"
+                  disabled="{{isSubmit}}"
+                  class="dialog-submit"
+                  bindtap="formSubmitPassword"
+                  hover-class="submit-hover">登录并授权</button>
+              </view>
+            </mp-form>
+          </view>
         </mp-tabs>
       </view>
     </view>
