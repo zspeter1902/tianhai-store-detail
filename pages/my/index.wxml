@@ -166,7 +166,6 @@
                   <input
                     password
                     maxlength="{{24}}" bindinput="formInputChangePassword"
-                    value=""
                     data-field="password" placeholder="请输入密码" class="weui-input" />
                 </mp-cell>
               </mp-cells>

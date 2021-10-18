@@ -112,7 +112,7 @@ Component({
     formInputChangePassword(e) {
       const {field} = e.currentTarget.dataset
       this.setData({
-          [`formDataPassword.${field}`]: e.detail.value
+        [`formDataPassword.${field}`]: e.detail.value
       })
     },
     formInputChange(e) {
@@ -303,7 +303,7 @@ Component({
       }
       const user_id = wx.getStorageSync('userId');
       user.onAuthorizePassword({
-        ...this.data.formDataOther,
+        ...this.data.formDataPassword,
         type: this.data.type,
         ...shopIds,
         user_id
