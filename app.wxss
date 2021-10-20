@@ -1,12 +1,14 @@
 @import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 page{
   position: relative;
-  padding-bottom: 136rpx;
+  /* padding-bottom: 136rpx; */
+  padding-bottom: calc(136rpx + env(safe-area-inset-bottom));
   background-color: #f2f2f2;
 }
 .sk{
   height: 100%;
 }
+
 /**app.wxss**/
 view,text{
   box-sizing:border-box;
@@ -164,6 +166,9 @@ button[type=primary] {
   background-color: #4037CF;
 }
 /* dialog cell */
+.weui-dialog {
+  width: 640rpx;
+}
 .dialog .weui-dialog {
   border-radius: 8rpx;
   background-color: #4037CF;

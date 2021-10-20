@@ -119,3 +119,21 @@
   padding: 0;
   margin: 0;
 }
+/* 子组件 插件 */
+.reply-tabs .weui-tabs-bar__wrp {
+  background: transparent !important;
+  text-align: left;
+  /* margin-bottom: 20rpx; */
+}
+.reply-tabs .weui-tabs-swiper {
+  height: 668rpx;
+}
+.reply-tabs .title-tab {
+  margin-left: 30rpx;
+  opacity: 0.6;
+  line-height: 58rpx;
+  font-size: 34rpx;
+}
+.reply-tabs .title-tab.selected {
+  opacity: 1
+}

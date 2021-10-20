@@ -131,6 +131,7 @@ Page({
                 })
               }
               that.onLoad()
+              this.getList()
             });
           },
         });
@@ -549,7 +550,9 @@ Page({
    */
   onShow: function () {
     app.setTabBar(this, 2)
-    this.getList()
+    if (this.data.token) {
+      this.getList()
+    }
   },
 
   /**

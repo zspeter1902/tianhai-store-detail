@@ -197,8 +197,11 @@ Component({
     showIndex: null
   },
   observers: {
-    'shopId': function(newVal) {
+    'shopId': function(newVal, oldVal) {
       if (newVal) {
+        if (oldVal) {
+          clearInterval(this.data.realTime)
+        }
         this.getInfo()
       }
     }

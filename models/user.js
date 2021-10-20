@@ -78,26 +78,28 @@ class userModel extends HTTP {
       }
     })
   }
-  // 设置默认评价回复内容
-  setShopReply(shop_id, num, reply) {
+  // 设置默认评价回复内容 type: good / mid / bad
+  setShopReply(shop_id, num, reply, type) {
     return this.request({
       url: 'shop/setOperationReply',
       method: 'post',
       data: {
         shop_id: shop_id,
         num,
-        reply
+        reply,
+        assess_type: type
       }
     })
   }
   // 删除自动回复内容
-  deleteReply(shop_id, num) {
+  deleteReply(shop_id, num, type) {
     return this.request({
       url: 'shop/delOperationReply',
       method: 'POST',
       data: {
         shop_id: shop_id,
-        num
+        num,
+        assess_type: type
       }
     })
   }
@@ -136,13 +138,14 @@ class userModel extends HTTP {
     })
   }
   // 店铺自动回复开启关闭设置
-  bindShopReview(shop_id, status) {
+  bindShopReview(shop_id, status, type) {
     return this.request({
       url: 'shop/setShopReview',
       method: 'post',
       data: {
         shop_id: shop_id,
-        is_reply: status
+        is_reply: status,
+        assess_type: type
       }
     })
   }

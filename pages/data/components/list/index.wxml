@@ -1,20 +1,40 @@
 <z-title title="门店店铺出单信息" button="{{true}}" switch="{{switch}}" bind:switch="onSwitch" />
+<wxs module="handle">
+  var handleData = function(val) {
+    return val ? val : ''
+  }
+  module.exports = {
+    handleData:handleData
+  }
+</wxs>
 <view class="info bg-white df text-center">
-  <view wx:if="{{switch}}" class="info-list-box df-auto">
+  <view wx:if="{{switch}}" class="info-list-box box1 df-auto">
     <view class="list-title">美团</view>
-    <view class="info-list">
-      <view wx:for="{{ lists }}" class="list">
-        <text>{{index + 1}}、-{{ item.order_num }}号单-{{item.is_meal == '1' ? '出餐成功' : '已接单'}}</text>
+    <scroll-view class="info-list text-left" scroll-y>
+      <view wx:for="{{ lists }}" wx:key="order_num" class="list">
+        <!-- <text>{{index + 1}}、-{{ item.order_num }}号单-{{item.is_meal == '1' ? '出餐成功' : '已接单'}}</text> -->
+        <view class="df jc-between ai-center status">
+          <text>#{{item.order_num}}{{handle.handleData(item.order_type)}}</text>
+          <text>{{handle.handleData(item.meal_msg)}}</text>
+        </view>
+        <view class="time">接单时间: {{handle.handleData(item.order_time)}}</view>
+        <view class="time">出餐时间: {{handle.handleData(item.meal_time)}}</view>
       </view>
-    </view>
+    </scroll-view>
   </view>
-  <view wx:if="{{switch}}" class="info-list-box df-auto">
+  <view wx:if="{{switch}}" class="info-list-box box2 df-auto">
     <view class="list-title">饿了么</view>
-    <view class="info-list">
-      <view wx:for="{{ lists2 }}" class="list">
-        <text>{{index + 1}}、-{{ item.order_num }}号单-{{item.is_meal == '1' ? '出餐成功' : '已接单'}}</text>
+    <scroll-view class="info-list text-left" scroll-y>
+      <view wx:for="{{ lists2 }}" wx:key="order_num" class="list">
+        <!-- <text>{{index + 1}}、-{{ item.order_num }}号单-{{item.is_meal == '1' ? '出餐成功' : '已接单'}}</text> -->
+        <view class="df jc-between ai-center status">
+          <text>#{{item.order_num}}{{handle.handleData(item.order_type)}}</text>
+          <text>{{handle.handleData(item.meal_msg)}}</text>
+        </view>
+        <view class="time">接单时间: {{handle.handleData(item.order_time)}}</view>
+        <view class="time">出餐时间: {{handle.handleData(item.meal_time)}}</view>
       </view>
-    </view>
+    </scroll-view>
   </view>
   <view wx:else class="df-auto close-tip">自动出单已关闭</view>
 </view>

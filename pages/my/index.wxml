@@ -28,7 +28,7 @@
           </view>
           <progress wx:if="{{userData.expire_date}}" class="progress" percent="{{useRatio}}" border-radius="3rpx" stroke-width="14rpx" active activeColor="#ffffff" backgroundColor="#392FD3" />
         </view>
-        <view class="text-right">
+        <!-- <view class="text-right">
           <button
             class="renew-btn"
             hover-class="button-hover"
@@ -36,7 +36,7 @@
           >
             立即续费
           </button>
-        </view>
+        </view> -->
       </block>
     </view>
   </view>

@@ -1,28 +1,58 @@
-<z-title title="门店店铺评价信息" button="{{true}}" switch="{{switch}}" bind:switch="onSwitch" />
+<z-title title="门店店铺评价信息" button="{{false}}" switch="{{switch}}" bind:switch="onSwitch" />
 <view class="info bg-white df text-center">
-  <view wx:if="{{switch}}" class="info-list-box df-auto">
-    <view class="list-title">美团</view>
-    <view class="info-list df flex-column jc-center">
-      <text>{{ lists['0'] }}</text>
-      <text>{{ lists['1'] }}</text>
+  <view class="info-list-box df-auto">
+    <view class="list-title df ai-center">
+      <image class="list-logo" src="/images/meituan.png" mode="aspectFill" />
+      <view class="list-level">
+        评分<text class="list-score">{{lists.mt_score}}</text>
+      </view>
+    </view>
+    <view class="info-list df flex-column">
+      <view class="comment comment-good df jc-between">
+        <text class="tag">好评</text>
+        <view>已自动回复<text class="point">{{lists.good}}</text>条</view>
+      </view>
+      <view class="comment comment-normal df jc-between">
+        <text class="tag">中评</text>
+        <view>已自动回复<text class="point">{{lists.mid}}</text>条</view>
+      </view>
+      <view class="comment comment-bad df jc-between">
+        <text class="tag">差评</text>
+        <view>已自动回复<text class="point">{{lists.bad}}</text>条</view>
+      </view>
       <view class="search-box" bind:tap="onSearch" data-type="mt">
         <image class="icon-search" src="/images/search.png" mode="aspectFit" />
         <text>查询差评信息</text>
       </view>
     </view>
   </view>
-  <view wx:if="{{switch}}" class="info-list-box df-auto">
-    <view class="list-title">饿了么</view>
-    <view class="info-list df flex-column jc-center">
-      <text>{{ lists2['0'] }}</text>
-      <text>{{ lists2['1'] }}</text>
+  <view class="info-list-box df-auto">
+    <view class="list-title df ai-center">
+      <image class="list-logo" src="/images/eleme.png" mode="aspectFill" />
+      <view class="list-level">
+        评分<text class="list-score">{{lists2.elem_score}}</text>
+      </view>
+    </view>
+    <view class="info-list df flex-column">
+      <view class="comment comment-good df jc-between">
+        <text class="tag">好评</text>
+        <view>已自动回复<text class="point">{{lists2.good}}</text>条</view>
+      </view>
+      <view class="comment comment-normal df jc-between">
+        <text class="tag">中评</text>
+        <view>已自动回复<text class="point">{{lists2.mid}}</text>条</view>
+      </view>
+      <view class="comment comment-bad df jc-between">
+        <text class="tag">差评</text>
+        <view>已自动回复<text class="point">{{lists2.bad}}</text>条</view>
+      </view>
       <view class="search-box" bind:tap="onSearch" data-type="elem">
         <image class="icon-search" src="/images/search.png" mode="aspectFit" />
         <text>查询差评信息</text>
       </view>
     </view>
   </view>
-  <view wx:if="{{!switch}}" class="df-auto close-tip">自动回评功能已关闭</view>
+  <!-- <view wx:if="{{!switch}}" class="df-auto close-tip">自动回评功能已关闭</view> -->
 </view>
 <button class="btn" hover-class="button-hover" bind:tap="openReply">设置评价回复内容</button>
 <!-- 查询差评信息弹出框 -->
@@ -77,40 +107,127 @@
 <!-- 评价回复内容弹出框 -->
 <mp-dialog ext-class="dialog" show="{{dialogShow}}">
   <image class="dialog-bg" src="/images/dialog_bg3.png" mode="aspectFill"/>
-  <view class="dialog-container">
+  <view class="dialog-container reply-tabs">
     <view class="dialog-header text-left">
       <text class="dialog-title">回复内容设置</text>
       <mp-icon class="icon-close" icon="close" color="white" size="{{24}}" bind:tap="onClose"></mp-icon>
     </view>
-    <scroll-view class="dialog-content" scroll-y>
-      <view class="dialog-form" wx:for="{{formData}}" wx:key="index">
-        <mp-form wx:if="{{index < 10}}" id="form{{index}}" rules="{{rules}}" models="{{item}}">
-          <textarea
-            data-field="reply"
-            data-index="{{index}}"
-            maxlength="{{240}}"
-            placeholder="输入内容"
-            class="dialog-textarea"
-            bindinput="formInputChange"
-            value="{{item.reply}}" />
-          <button
-            hidden="{{isDelete}}"
-            class="dialog-submit"
-            bindtap="formSubmit"
-            data-form="form{{index}}"
-            data-index="{{index}}"
-            hover-class="button-hover">确定</button>
-          <button
-          hidden="{{!isDelete}}"
-            class="dialog-delete"
-            bindtap="formDelete"
-            data-index="{{index}}"
-            hover-class="button-hover">删除</button>
-        </mp-form>
+
+    <mp-tabs
+      tabs="{{tabs}}"
+      tabClass="title-tab"
+      activeTab="{{activeTab}}"
+      swiperClass="weui-tabs-swiper"
+      bindtabclick="onTabClick"
+      bindchange="onTabChange"
+      tab-inactive-text-color="#fff"
+      tab-underline-color=""
+      tab-background-color="transparent"
+      tab-active-text-color="#fff"
+      activeClass="selected"
+    >
+      <view slot="tab-content-0">
+        <z-switch class="reply-switch" checked="{{switch}}" bind:switch="onSwitch" data-key="good" color="#38F0C0" />
+        <scroll-view class="dialog-content" scroll-y>
+          <view class="dialog-form" wx:for="{{formData.good}}" wx:key="index">
+            <mp-form wx:if="{{index < 11}}" id="form_good{{index}}" rules="{{rules}}" models="{{item}}">
+              <textarea
+                data-field="reply"
+                data-index="{{index}}"
+                data-key="good"
+                maxlength="{{240}}"
+                placeholder="输入内容(不小于10个字)"
+                class="dialog-textarea"
+                bindinput="formInputChange"
+                value="{{item}}" />
+              <button
+                hidden="{{isDelete}}"
+                class="dialog-submit"
+                bindtap="formSubmit"
+                data-form="form_good{{index}}"
+                data-key="good"
+                data-index="{{index}}"
+                hover-class="button-hover">确定</button>
+              <button
+              hidden="{{!isDelete}}"
+                class="dialog-delete"
+                bindtap="formDelete"
+                data-key="good"
+                data-index="{{index}}"
+                hover-class="button-hover">删除</button>
+            </mp-form>
+          </view>
+        </scroll-view>
       </view>
-    </scroll-view>
+      <view slot="tab-content-1">
+        <z-switch class="reply-switch" checked="{{switch}}" bind:switch="onSwitch" data-key="mid" color="#38F0C0" />
+        <scroll-view class="dialog-content" scroll-y>
+          <view class="dialog-form" wx:for="{{formData.mid}}" wx:key="index">
+            <mp-form wx:if="{{index < 11}}" id="form_mid{{index}}" rules="{{rules}}" models="{{item}}">
+              <textarea
+                data-field="reply"
+                data-index="{{index}}"
+                data-key="mid"
+                maxlength="{{240}}"
+                placeholder="输入内容(不小于10个字)"
+                class="dialog-textarea"
+                bindinput="formInputChange"
+                value="{{item}}" />
+              <button
+                hidden="{{isDelete}}"
+                class="dialog-submit"
+                bindtap="formSubmit"
+                data-form="form_mid{{index}}"
+                data-key="mid"
+                data-index="{{index}}"
+                hover-class="button-hover">确定</button>
+              <button
+              hidden="{{!isDelete}}"
+                class="dialog-delete"
+                bindtap="formDelete"
+                data-key="mid"
+                data-index="{{index}}"
+                hover-class="button-hover">删除</button>
+            </mp-form>
+          </view>
+        </scroll-view>
+      </view>
+      <view slot="tab-content-2">
+        <z-switch class="reply-switch" checked="{{switch}}" bind:switch="onSwitch" data-key="bad" color="#38F0C0" />
+        <scroll-view class="dialog-content" scroll-y>
+          <view class="dialog-form" wx:for="{{formData.bad}}" wx:key="index">
+            <mp-form wx:if="{{index < 11}}" id="form_bad{{index}}" rules="{{rules}}" models="{{item}}">
+              <textarea
+                data-field="reply"
+                data-index="{{index}}"
+                data-key="bad"
+                maxlength="{{240}}"
+                placeholder="输入内容(不小于10个字)"
+                class="dialog-textarea"
+                bindinput="formInputChange"
+                value="{{item}}" />
+              <button
+                hidden="{{isDelete}}"
+                class="dialog-submit"
+                bindtap="formSubmit"
+                data-form="form_bad{{index}}"
+                data-key="bad"
+                data-index="{{index}}"
+                hover-class="button-hover">确定</button>
+              <button
+              hidden="{{!isDelete}}"
+                class="dialog-delete"
+                bindtap="formDelete"
+                data-key="bad"
+                data-index="{{index}}"
+                hover-class="button-hover">删除</button>
+            </mp-form>
+          </view>
+        </scroll-view>
+      </view>
+    </mp-tabs>
     <view class="dialog-footer df jc-between">
-      <button class="dialog-btn df-auto" bindtap="onAdd" hover-class="button-hover">增加回复内容</button>
+      <!-- <button class="dialog-btn df-auto" bindtap="onAdd" hover-class="button-hover">增加回复内容</button> -->
       <button class="dialog-btn-switch df-fixed" bindtap="switchDelete" hover-class="button-hover">删除</button>
     </view>
   </view>

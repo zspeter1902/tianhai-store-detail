@@ -308,7 +308,8 @@
 }
 .login-tabs {
   margin-left: 30rpx;
-  opacity: 0.6
+  opacity: 0.6;
+  font-size: 34rpx;
 }
 .login-tabs.selected {
   opacity: 1

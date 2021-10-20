@@ -50,9 +50,11 @@ Component({
     }
   },
   observers: {
-    'shopId': function(newVal) {
+    'shopId': function(newVal, oldVal) {
       if (newVal) {
-        clearInterval(this.data.realTime)
+        if (oldVal) {
+          clearInterval(this.data.realTime)
+        }
         this.getInfo()
       }
     }
@@ -66,7 +68,7 @@ Component({
         // wx.showToast({
         //   title: '数据已更新！'
         // })
-      }, 4 * 60000)//间隔时间
+      }, 1 * 60000)//间隔时间 4
       // 更新数据
       // this.setData({
       //   realTime: this.data.realTime

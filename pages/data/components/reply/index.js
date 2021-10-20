@@ -23,20 +23,21 @@ Component({
    */
   data: {
     switch: true,
+    switchObj: {},
+    switchArr: ['good_is_reply', 'mid_is_reply', 'bad_is_reply'],
     lists: {},
     lists2: {},
     dialogShow: false,
     formData: [],
-    rules: [{
-      name: 'reply',
-      rules: [{required: true, message: '请输入内容'}]
-    }],
+    rules: [],
     isDelete: false,
     isSearchShow: false,
     resultData: [],
     showIndex: 0,
     mtSearch: [],
-    elemSearch: []
+    elemSearch: [],
+    tabs: [{title: '好评'}, {title: '中评'}, {title: '差评'}],
+    activeTab: 0
   },
   observers: {
     'shopId': function(newVal) {
@@ -52,9 +53,11 @@ Component({
     getInfo() {
       Login.checkLogin(() => {
         user.getShopReply(this.data.shopId).then(res => {
+          const key = this.data.switchArr[this.data.activeTab]
           this.setData({
             formData: res.data,
-            switch: !!Number(res.status)
+            switch: !!Number(res.status[key]),
+            switchObj: res.status
           })
         })
         user.getReplyStatistics(this.data.shopId).then(res => {
@@ -65,9 +68,9 @@ Component({
         })
       }, false)
     },
-    setReply(shopId, num, reply) {
+    setReply(shopId, num, reply, type) {
       Login.checkLogin(() => {
-        user.setShopReply(shopId, num, reply).then(res => {
+        user.setShopReply(shopId, num, reply, type).then(res => {
           wx.showToast({
             title: '保存成功！',
             icon: 'success',
@@ -86,6 +89,7 @@ Component({
     },
 
     onSwitch(e) {
+      const {key} = e.currentTarget.dataset
       const msg = e.detail ? '打开' : '关闭'
       wx.showModal({
         title: `您确定${msg}自动回评功能吗？`,
@@ -97,10 +101,11 @@ Component({
         confirmColor: '#4037CF',
         success: (result) => {
           if(result.confirm){
-            this.setAutoReply(e.detail)
+            this.setAutoReply(e.detail, key)
           } else {
             this.setData({
-              switch: !e.detail
+              switch: !e.detail,
+              [`switchObj.${key + '_is_reply'}`]:  (+!e.detail).toString()
             })
           }
         },
@@ -154,12 +159,20 @@ Component({
         })
       }
     },
+    setSwitch() {
+      const data = this.data.switchObj
+      const key = this.data.switchArr[this.data.activeTab]
+      this.setData({
+        switch: !!Number(data[key])
+      })
+    },
     // 查询差评结束
-    setAutoReply(status) {
+    setAutoReply(status, key) {
       Login.checkLogin(() => {
-        user.bindShopReview(this.data.shopId, +status).then(res => {
+        user.bindShopReview(this.data.shopId, +status, key).then(res => {
           this.setData({
-            switch: status
+            switch: status,
+            [`switchObj.${key + '_is_reply'}`]: (+status).toString()
           })
           wx.showToast({
             title: '设置成功！',
@@ -167,13 +180,28 @@ Component({
           })
         }).catch(err => {
           this.setData({
-            switch: !status
+            switch: !status,
+            [`switchObj.${key + '_is_reply'}`]: (+!status).toString()
           })
           wx.showToast({
             title: '设置失败！',
             icon: 'error'
           })
         })
+      })
+    },
+    onTabClick(e) {
+      const index = e.detail.index
+      this.setSwitch()
+      this.setData({
+        activeTab: index
+      })
+    },
+    onTabChange(e) {
+      const index = e.detail.index
+      this.setSwitch()
+      this.setData({
+        activeTab: index
       })
     },
     openReply() {
@@ -188,13 +216,15 @@ Component({
       })
     },
     formInputChange(e) {
-      const {field, index} = e.currentTarget.dataset
+      const {field, key, index} = e.currentTarget.dataset
       this.setData({
-          [`formData[${index}].${field}`]: e.detail.value
+        [`formData.${key}.${index}`]: e.detail.value.trim()
       })
     },
     onAdd() {
       const len = this.data.formData.length
+      const types = ['good', 'mid', 'bad']
+      const currentType = types[this.data.activeTab]
       if (len < 10) {
         this.setData({
           [`formData[${len}]`]: {}
@@ -207,20 +237,16 @@ Component({
       })
     },
     formDelete(e) {
-      const {index} = e.currentTarget.dataset
-      const arr = this.data.formData
-      const currentData = arr.splice(index, 1)[0]
+      const {index, key} = e.currentTarget.dataset
       Login.checkLogin(() => {
-        user.deleteReply(this.data.shopId, currentData.num).then(() => {
+        user.deleteReply(this.data.shopId, index, key).then(() => {
+          this.getInfo()
           wx.showToast({
             title: '删除成功！',
             icon: 'success',
             duration: 1500,
             mask: true
           });
-          this.setData({
-            formData: arr
-          })
         }).catch(err => {
           wx.showToast({
             title: '删除失败！',
@@ -232,19 +258,22 @@ Component({
       })
     },
     formSubmit(e) {
-      const {form, index} = e.currentTarget.dataset
+      const {form, index, key} = e.currentTarget.dataset
+      const content = this.data.formData[key][index]
+      console.log(content)
       this.selectComponent('#' + form).validate((valid, errors) => {
-        if (!valid) {
-          const firstError = Object.keys(errors)
-          if (firstError.length) {
-            wx.showToast({
-              icon: 'error',
-              title: errors[firstError[0]].message
-            })
-          }
+        if (!content) {
+          wx.showToast({
+            icon: 'error',
+            title: '请输入内容！'
+          })
+        } else if (content.length < 10) {
+          wx.showToast({
+            icon: 'none',
+            title: '内容不为小于10个字！'
+          })
         } else {
-          const currentData = this.data.formData[index]
-          this.setReply(this.data.shopId, currentData.num || this.data.formData.length, currentData.reply)
+          this.setReply(this.data.shopId, index, content, key)
           // this.setData({
           //   dialogShow: false
           // })

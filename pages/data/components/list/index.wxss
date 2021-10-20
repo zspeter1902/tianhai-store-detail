@@ -6,10 +6,15 @@
 }
 .info-list-box {
   position: relative;
-  padding: 0 26rpx;
-  /* padding: 0 28rpx 0 42rpx; */
+  /* padding: 0 10rpx; */
+  padding-left: 20rpx;
+  padding-right: 10rpx;
   font-size: 28rpx;
   line-height: 40rpx;
+}
+.box2 {
+  padding-left: 10rpx;
+  padding-right: 20rpx;
 }
 .info-list-box:first-child::before {
   content: '';
@@ -26,13 +31,23 @@
   color: #3b3085;
   font-weight: bold;
 }
-/* .info-list {
-  height: 420rpx;
-} */
+.info-list {
+  max-height: 600rpx;
+}
 .info-list .list {
   margin-bottom: 20rpx;
+  padding: 18rpx 12rpx 16rpx 12rpx;
   color: #555;
+  line-height: 34rpx;
+  background-color: rgba(64, 55, 207, 0.11);
 }
+.list .status {
+  font-size: 24rpx;
+}
+.list .time {
+  font-size: 20rpx;
+}
+
 .btn {
   width: 100% !important;
   margin: 20rpx 0;

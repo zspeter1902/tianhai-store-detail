@@ -1,12 +1,12 @@
 .info {
   position: relative;
-  padding-top: 30rpx;
-  padding-bottom: 24rpx;
+  padding-top: 60rpx;
+  padding-bottom: 40rpx;
   border-radius: 8rpx 8rpx 4rpx 4rpx;
 }
 .info-list-box {
   position: relative;
-  padding: 0 22rpx;
+  padding: 0 26rpx;
   font-size: 28rpx;
   line-height: 40rpx;
 }
@@ -14,8 +14,8 @@
   content: '';
   position: absolute;
   right: 0;
-  top: 26rpx;
-  bottom: 0;
+  top: 0;
+  bottom: 22rpx;
   width: 1rpx;
   background-color: #dedede;
   transform: scaleX(.5);
@@ -24,14 +24,73 @@
   color: #3b3085;
   font-weight: bold;
 }
+.list-logo {
+  width: 94rpx;
+  height: 94rpx;
+  margin-left: 7rpx;
+  margin-right: 30rpx;
+  border-radius: 48rpx;
+}
+.list-level {
+  font-size: 28rpx;
+  font-family: SourceHanSansCN-Regular, SourceHanSansCN;
+  font-weight: 400;
+  color: #444444;
+  line-height: 54rpx;
+}
+.list-level .list-score {
+  margin-left: 20rpx;
+  font-size: 54rpx;
+  font-family: SourceHanSansCN-Medium, SourceHanSansCN;
+  font-weight: 500;
+  color: #4037CF;
+  line-height: 54rpx;
+  text-shadow: 0 4rpx 24rpx rgba(79, 96, 255, 0.3);
+  vertical-align: bottom;
+}
+.comment {
+  margin-top: 30rpx;
+  padding: 12rpx 15rpx 12rpx 20rpx;
+  font-size: 24rpx;
+  color: #302866;
+  font-family: PingFangSC-Regular, PingFang SC;
+  line-height: 60rpx;
+}
+.comment .tag {
+  font-size: 28rpx;
+  font-family: SourceHanSansCN-Normal, SourceHanSansCN;
+  font-weight: 400;
+}
+.comment .point {
+  margin: 0 8rpx;
+}
+.comment-good {
+  background-color: rgba(64, 55, 207, 0.11);
+}
+.comment-good .tag, .comment-good .point {
+  color: #4037CF;
+}
+.comment-normal {
+  background-color: #EEF5FF;
+}
+.comment-normal .tag, .comment-normal .point {
+  color: #316ADE;
+}
+.comment-bad {
+  background-color: #FDF6EE;
+}
+.comment-bad .tag, .comment-bad .point {
+  color: #F58134;
+}
 .info-list {
-  height: 420rpx;
+  /* height: 420rpx; */
+  margin-top: 20rpx;
   color: #302866;
   font-size: 30rpx;
   line-height: 42rpx;
 }
 .search-box {
-  margin-top: 70rpx;
+  margin-top: 40rpx;
   margin-bottom: 10rpx;
   font-size: 30rpx;
   color: #4037CF;
@@ -193,7 +252,7 @@
 }
 .dialog-form {
   border-radius: 4rpx;
-  margin-bottom: 20px;
+  margin-bottom: 20rpx;
   overflow: hidden;
 }
 .dialog-title {
@@ -238,9 +297,9 @@
   background-color: #EFEEFF;
 }
 .dialog-btn-switch {
-  width: 130rpx !important;
+  width: 100% !important;
   padding: 20rpx;
-  margin: 0 0 0 22rpx !important;
+  /* margin: 0 0 0 22rpx !important; */
   color: #a2a2a2;
   font-weight: bold;
   font-size: 26rpx;
@@ -251,4 +310,14 @@
 }
 .button-hover {
   opacity: 0.8;
+}
+.reply-switch {
+  position: relative;
+  float: right;
+  margin-bottom: 20rpx;
+  z-index: 3;
+}
+.reply-tabs .dialog-content {
+  max-height: 668rpx;
+  /* margin-top: 20rpx; */
 }

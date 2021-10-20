@@ -2,6 +2,8 @@
   "component": true,
   "usingComponents": {
     "z-title": "../title/index",
+    "z-switch": "/components/switch/index",
+    "mp-tabs": "@miniprogram-component-plus/tabs",
     "mp-dialog": "weui-miniprogram/dialog/dialog",
     "mp-icon": "weui-miniprogram/icon/icon",
     "mp-form": "weui-miniprogram/form/form",
