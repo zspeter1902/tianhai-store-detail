@@ -2,11 +2,13 @@
 .platform .item {
   position: relative;
   border-radius: 4rpx;
-  overflow: hidden;
 }
 .platform .logo {
-  width: 185rpx;
-  height: 185rpx;
+  width: 221rpx;
+  height: 221rpx;
+  margin-bottom: 40rpx;
+  border-radius: 120rpx;
+  box-shadow: 0 4rpx 24rpx 0 rgba(184,184,184,0.5);
 }
 .platform .checked::before {
   content: '';
@@ -28,6 +30,32 @@
   border-left: 4rpx solid #fff;
   border-bottom: 4rpx solid #fff;
   transform: rotate(-45deg);
+}
+.platform .pointer {
+  color: #0A3FFF;
+  font-size: 30rpx;
+}
+.platform .pointer::before {
+  content: '';
+  display: inline-block;
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 20rpx;
+  background-color: #d8d8d8;
+  border-radius: 10rpx;
+  vertical-align: middle;
+}
+.platform .online {
+  color: #77ff45;
+}
+.platform .online::before {
+  background-color: #77ff45;
+}
+.platform .offline {
+  color: #E84646;
+}
+.platform .offline::before {
+  background-color: #E84646;
 }
 .button-hover {
   opacity: 0.8;
@@ -72,7 +100,6 @@
 .my-cell-btn {
   margin-top: 40rpx;
 }
-
 .btn-code {
   font-size: 26rpx;
   line-height: 38rpx;

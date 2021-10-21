@@ -1,4 +1,4 @@
-<wxs src="../../../../utils/filter.wxs" module="util"></wxs>
+<wxs src="../../../../utils/wxs/filter.wxs" module="util"></wxs>
 <view class="info bg-white df text-center">
   <view class="info-list-box df-auto">
     <view class="list-title">美团</view>

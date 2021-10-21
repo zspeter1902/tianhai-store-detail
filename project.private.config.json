@@ -39,6 +39,13 @@
         {
           "name": "店铺",
           "pathName": "pages/store/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "首页",
+          "pathName": "pages/index/index",
+          "query": "",
           "scene": null
         }
       ]

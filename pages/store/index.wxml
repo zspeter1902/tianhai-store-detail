@@ -9,7 +9,7 @@
       <view class="name">{{item.shop_name}}</view>
       <!-- <text class="status df-fixed {{item.is_online ? 'on' : ''}}">{{item.is_online ? '在线' : '离线'}}</text> -->
     </view>
-    <view class="df jc-between fw-wrap">
+    <view class="df jc-between flex-wrap">
       <view class="account df ai-center df-auto">
         <image class="logo" mode="aspectFit" src="/images/meituan.png" />
         <text>帐号：{{item.mt_account_id || '暂无'}}</text>

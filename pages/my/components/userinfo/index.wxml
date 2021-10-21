@@ -1,0 +1,31 @@
+<view class="profit userinfo df ai-center">
+  <open-data class="avatar df-fixed" type="userAvatarUrl"></open-data>
+  <view class="ovh df-auto">
+    <view wx:if="{{!token}}" class="df jc-between ai-center">
+      <view>
+        <open-data class="name" type="userNickName"></open-data>
+        <view class="time">到期时间2021-3-1 {{userData.expire_date}}</view>
+      </view>
+      <navigator class="vip" url="">会员中心</navigator>
+    </view>
+    <button
+      wx:else
+      class="login-btn"
+      hover-class="button-hover"
+      bindtap="getUserProfile"
+    >
+      登录
+    </button>
+  </view>
+  <block wx:if="{{token}}">
+    <view class="text-right">
+      <button
+        class="renew-btn"
+        hover-class="button-hover"
+        bind:tap="onOpen"
+      >
+        立即续费
+      </button>
+    </view>
+  </block>
+</view>

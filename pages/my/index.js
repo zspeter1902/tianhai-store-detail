@@ -1,5 +1,6 @@
 // pages/pay/pay.js
 const app =  getApp();
+import util from '../../utils/util.js';
 import {login} from '../../utils/login.js';
 const Login = new login();
 import {userModel} from '../../models/user.js';
@@ -11,6 +12,19 @@ Page({
    */
   data: {
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
+    functions: [{
+      name: '全部订单',
+      icon: '/images/icon_order_all.png',
+      url: ''
+    }, {
+      name: '订单设置',
+      icon: '/images/icon_order_setting.png',
+      url: ''
+    }, {
+      name: '评价设置',
+      icon: '/images/icon_evaluate_setting.png',
+      url: ''
+    }],
     loading: false,
     userData: wx.getStorageSync('userData'),
     token: wx.getStorageSync('token'),
@@ -55,9 +69,6 @@ Page({
     typeData: {},
     // 选中待支付会员
     vipItem: {},
-    // 天数
-    useRatio: null,
-    useDay: null,
     // 倒计时
     countDown: '',
     timer: null
@@ -78,15 +89,20 @@ Page({
       this.getVip()
     }
   },
+  onLink(e) {
+    const {url} = e.currentTarget.dataset
+    Login.checkLogin(() => {
+      wx.navigateTo({
+        url: url
+      })
+    })
+  },
   getUserInfo() {
     user.getUserInfo().then(res => {
       wx.setStorageSync('userData', res.user_info)
       this.setData({
         userData: res.user_info
       })
-      this.calcDay()
-    }).catch(err => {
-      this.calcDay()
     })
   },
   getUserProfile() {
@@ -120,23 +136,6 @@ Page({
           },
         });
       }
-    })
-  },
-  calcDay() {
-    const {expire_date, create_time} = this.data.userData
-    const time = new Date().getTime()
-    const startTime = new Date(create_time).getTime()
-    const endTime = new Date(expire_date).getTime()
-    // 计算总天数
-    const totalDay = Math.ceil((endTime - startTime) / (1000 * 60 * 60 * 24))
-    // 计算使用天数
-    const useDay = Math.ceil((time - startTime) / (1000 * 60 * 60 * 24))
-    // 计算使用比率
-    const ratio = Math.ceil((useDay * 100) / totalDay)
-    // 更新数据
-    this.setData({
-      useRatio: ratio >= 100 ? 100 : ratio,
-      useDay: useDay
     })
   },
   getList() {
@@ -394,10 +393,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    app.setTabBar(this, 2)
+    app.setTabBar(this, 1)
     this.getList()
   },
-
+  onPageScroll: util.debounce((res) => {
+    const current = getCurrentPages()[getCurrentPages().length - 1]
+    if (res.scrollTop > (app.globalData.navHeight / 2)) {
+      current.selectComponent('#custom').changeMode(true)
+    } else {
+      current.selectComponent('#custom').changeMode(false)
+    }
+  }),
   /**
    * 生命周期函数--监听页面隐藏
    */

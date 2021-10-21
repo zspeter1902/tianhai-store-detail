@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "z-more": "/components/more/index"
+  }
+}

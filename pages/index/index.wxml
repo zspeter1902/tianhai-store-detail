@@ -1,0 +1,27 @@
+<!--pages/index/index.wxml-->
+<custom id="custom" title="首页" />
+<!-- 收益统计 -->
+<custom-view custom-class="profit-bg" background="/images/index_bg.png">
+  <view class="profit df jc-center ai-center flex-column">
+    <navigator url="" class="link-message">
+      <image class="message" src="/images/message.png" mode="aspectFit"/>
+    </navigator>
+    <text class="name">外卖月收益计(元)</text>
+    <text class="total">2,3333.23</text>
+    <text class="yesterday">昨日收益(元) +21.65</text>
+  </view>
+</custom-view>
+<view class="index-content">
+   <!-- 主要功能列表 -->
+  <z-index-nav />
+  <!-- 精选活动 -->
+  <z-title title="精选活动" url="1" />
+  <z-index-elaborate />
+  <!-- 热门话题 -->
+  <z-title title="热门话题" url="2" />
+  <z-index-hot />
+  <!-- 外卖小知识 -->
+  <z-title title="外卖小知识" url="3" />
+  <z-index-tips />
+</view>
+

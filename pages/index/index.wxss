@@ -1,0 +1,48 @@
+/* pages/index/index.wxss */
+.profit-bg {
+  min-height: 470rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  padding-bottom: 40rpx;
+  background-color: #0A3FFF;
+  border-radius: 0 0 24rpx 24rpx;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+.profit .link-message {
+  align-self: flex-end;
+  margin-top: 10rpx;
+  padding: 20rpx 20rpx 0;
+}
+.profit .message {
+  width: 48rpx;
+  height: 48rpx;
+  vertical-align: top;
+}
+.profit .name {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #D6D9EE;
+  line-height: 36rpx;
+}
+.profit .total {
+  margin: 20rpx 0 16rpx;
+  font-size: 72rpx;
+  font-family: Helvetica;
+  color: #FFFFFF;
+  line-height: 86rpx;
+  letter-spacing: 2rpx;
+  text-shadow: 0 3rpx 7rpx #123CD3;
+}
+.profit .yesterday {
+  font-size: 24rpx;
+  font-family: Helvetica;
+  color: #D6D9EE;
+  line-height: 30rpx;
+}
+/*  */
+.index-content {
+  padding: 0 30rpx;
+}

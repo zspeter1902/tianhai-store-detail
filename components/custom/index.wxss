@@ -4,22 +4,22 @@
   box-sizing: border-box;
   overflow: hidden;
   position: fixed;
-  top: -8rpx;
+  top: 0;
   left: 0;
-  transition: all .3s;
+  transition: all .3s ease-out;
   text-align: center;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   z-index: 1000;
 }
 .commonHead_content {
-  width: 100%;
-  height: 76rpx;
-  text-align: center;
-  font-size: 30rpx;
+  /* font-size: 48rpx; */
 }
-.commonHead_img{
-  max-width: 169rpx;
-  max-height: 81rpx;
-  margin: 0 auto;
+.commonHead_left, .commonHead_right, .commonHead_content {
+  padding: 0 36rpx;
+  transition: all .3s ease-out;
+}
+.commonHead_left {
+  text-align: left;
 }

@@ -20,20 +20,14 @@ Component({
     isIphoneX: app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false,
     show: true,
     selected: 0,
-    color: "#666666",
-    selectedColor: "#4037CF",
+    color: "#89979E",
+    selectedColor: "#3441FF",
     list: [
       {
-        "pagePath": "/pages/data/index",
-        "iconPath": "/images/tabbar/data.png",
-        "selectedIconPath": "/images/tabbar/data_checked.png",
-        "text": "数据"
-      },
-      {
-        "pagePath": "/pages/store/index",
-        "iconPath": "",
-        "isSpecial": true,
-        "text": ""
+        "pagePath": "/pages/index/index",
+        "iconPath": "/images/tabbar/index.png",
+        "selectedIconPath": "/images/tabbar/index_checked.png",
+        "text": "首页"
       },
       {
         "pagePath": "/pages/my/index",

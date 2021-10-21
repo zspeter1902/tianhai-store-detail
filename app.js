@@ -9,6 +9,16 @@ App({
     this.getSystemInfo();
     // 隐藏系统tabbar
     // wx.hideTabBar();
+    // 多线程
+    // 初始化多线程worker
+    wx.worker = wx.createWorker('workers/request/index.js');
+    // 监听worker被系统回收事件
+    if (wx.worker.onProcessKilled) {
+      wx.worker.onProcessKilled(() => {
+        // 重新创建一个worker
+        wx.worker = wx.createWorker('workers/request/index.js')
+      })
+    }
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -21,6 +31,10 @@ App({
     // if (!!token) {
     //   wx.switchTab({
     //     url: 'pages/data/index'
+    //   })
+    // } else {
+    //   wx.reLaunch({
+    //     url: 'pages/login/index'
     //   })
     // }
     // 版本更新
@@ -62,9 +76,15 @@ App({
   },
   getSystemInfo: function () {
     let t = this;
+    //获取菜单按钮的布局位置信息
+    let menuButtonObject = wx.getMenuButtonBoundingClientRect();
     wx.getSystemInfo({
       success: function (res) {
         t.globalData.systemInfo = res;
+        t.globalData.navHeight = res.statusBarHeight + menuButtonObject.height + (menuButtonObject.top - res.statusBarHeight) * 2
+        t.globalData.navTop = menuButtonObject.top
+        t.globalData.capsuleWidth = menuButtonObject.width
+        t.globalData.capsuleHeight = menuButtonObject.height
       }
     });
   },
@@ -76,6 +96,10 @@ App({
     }
   },
   globalData: {
+    navTop: 0,
+    navHeight: 0,
+    capsuleWidth: 0,
+    capsuleHeight: 0,
     current: 0,
     shopId: null,
     picUrl: config.picUrl,

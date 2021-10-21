@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "z-index-nav": "./components/navigation/index",
+    "z-title": "/components/title/index",
+    "z-index-elaborate": "./components/elaborate/index",
+    "z-index-hot": "./components/hot/index",
+    "z-index-tips": "./components/tips/index"
+  }
+}

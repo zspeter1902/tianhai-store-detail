@@ -1,0 +1,24 @@
+.func-list {
+  position: relative;
+  margin-top: -40rpx;
+  padding: 40rpx 50rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 6rpx 20rpx 0 rgba(204,204,204,0.25);
+  z-index: 3;
+}
+.func-list .item {
+  vertical-align: middle;
+}
+.func-list .icon {
+  display: block;
+  width: 96rpx;
+  height: 96rpx;
+  margin: auto;
+}
+.func-list .name {
+  margin-top: 14rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #434166;
+  line-height: 40rpx;
+}

@@ -3,8 +3,8 @@
     "pages/my/index",
     "pages/data/index",
     "pages/authorization/index",
-    "pages/login/index",
-    "pages/store/index"
+    "pages/store/index",
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -18,16 +18,10 @@
     "custom": true,
     "list": [
       {
-        "pagePath": "pages/data/index",
-        "text": "数据",
-        "iconPath": "images/tabbar/data.png",
-        "selectedIconPath": "images/tabbar/data_checked.png"
-      },
-      {
-        "pagePath": "pages/store/index",
-        "text": "",
-        "iconPath": "images/tabbar/data.png",
-        "selectedIconPath": "images/tabbar/data_checked.png"
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/index.png",
+        "selectedIconPath": "images/tabbar/index_checked.png"
       },
       {
         "pagePath": "pages/my/index",
@@ -41,7 +35,9 @@
     "borderStyle": "white",
     "backgroundColor": "#ffffff"
   },
+  "workers": "workers",
   "usingComponents": {
+    "custom-view": "components/custom-view/index",
     "custom": "components/custom/index"
   },
   "style": "v2",

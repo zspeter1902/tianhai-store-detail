@@ -1,0 +1,14 @@
+<view class="func-list bg-white text-center df jc-between custom-class">
+  <view class="item" hover-class="navigator-hover">
+    <image class="icon" src="/images/icon_analysis.png" mode="aspectFit" />
+    <text class="name">订单分析</text>
+  </view>
+  <view class="item" hover-class="navigator-hover">
+    <image class="icon" src="/images/icon_evaluate.png" mode="aspectFit" />
+    <text class="name">评价管理</text>
+  </view>
+  <view class="item" hover-class="navigator-hover">
+    <image class="icon" src="/images/icon_order.png" mode="aspectFit" />
+    <text class="name">订单管理</text>
+  </view>
+</view>

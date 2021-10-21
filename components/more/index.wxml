@@ -1,0 +1,1 @@
+<navigator class="more-link custom-class" url="{{url}}" style="color: {{color}}; background: {{backgroundColor}}; --border-color: {{borderColor}}">更多</navigator>

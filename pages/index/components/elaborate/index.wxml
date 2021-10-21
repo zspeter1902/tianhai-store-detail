@@ -1,0 +1,19 @@
+<view class="df jc-between ai-center">
+  <!-- 会员 -->
+  <view class="vip box df-fixed" style="background-image: url(/images/index_bg_vip.jpg)">
+    <view class="name">会员中心</view>
+    <z-more custom-class="more" color="#6E7AFE" border-color="#6E7AFF" background-color="#FFFFFF" url="" />
+  </view>
+  <!-- 信息 -->
+  <view class="box df flex-column jc-between df-auto">
+    <view class="news" style="background-image: url(/images/index_bg_news.jpg)">
+      <view class="name">外卖资讯</view>
+      <z-more custom-class="more" color="#fff" border-color="#fff" background-color="linear-gradient(146deg, #0A3FFF 0%, #5E68FF 100%)" url="" />
+    </view>
+    <view class="question" style="background-image: url(/images/index_bg_question.jpg)">
+      <view class="name">答疑解惑</view>
+      <z-more custom-class="more" color="#fff" border-color="#fff" background-color="linear-gradient(146deg, #0A3FFF 0%, #5E68FF 100%)" url="" />
+    </view>
+  </view>
+
+</view>

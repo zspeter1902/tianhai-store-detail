@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
     token: wx.getStorageSync('token'),
     firstId: null,
     isFirstBind: false,

@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -20,10 +20,11 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
+    "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
-    "useApiHostProcess": false,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -35,12 +36,15 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "showES6CompileOption": false
+    "disableUseStrict": false,
+    "minifyWXML": true,
+    "showES6CompileOption": false,
+    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.3",
-  "appid": "wxc9580d5fa712a085",
-  "projectname": "wx-store-detail",
+  "appid": "wx9b111df63506f1d2",
+  "projectname": "2021%E5%A4%96%E5%8D%96%E5%AE%9D",
   "debugOptions": {
     "hidedInDevtools": []
   },

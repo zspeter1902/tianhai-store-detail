@@ -1,0 +1,35 @@
+<view class="lists">
+  <navigator class="item df jc-between ai-center" url="">
+    <view class="box df-auto">
+      <view class="name">外卖运营的重要性</view>
+      <view class="des">店铺评分是每一位外卖商家都很关注的内容，湿答答…</view>
+      <view class="df ai-center total">
+        <text class="time">30分钟前</text>
+        <text class="hits">39203人阅读</text>
+      </view>
+    </view>
+    <image class="thumb df-fixed" src="/images/index_bg.png" mode="aspectFill" />
+  </navigator>
+  <navigator class="item df jc-between ai-center" url="">
+    <view class="box df-auto">
+      <view class="name">外卖运营的重要性</view>
+      <view class="des">店铺评分是每一位外卖商家都很关注的内容，湿答答…</view>
+      <view class="df ai-center total">
+        <text class="time">30分钟前</text>
+        <text class="hits">39203人阅读</text>
+      </view>
+    </view>
+    <image class="thumb df-fixed" src="/images/index_bg.png" mode="aspectFill" />
+  </navigator>
+  <navigator class="item df jc-between ai-center" url="">
+    <view class="box df-auto">
+      <view class="name">外卖运营的重要性</view>
+      <view class="des">店铺评分是每一位外卖商家都很关注的内容，湿答答…</view>
+      <view class="df ai-center total">
+        <text class="time">30分钟前</text>
+        <text class="hits">39203人阅读</text>
+      </view>
+    </view>
+    <image class="thumb df-fixed" src="/images/index_bg.png" mode="aspectFill" />
+  </navigator>
+</view>

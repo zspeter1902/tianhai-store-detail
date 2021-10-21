@@ -1,0 +1,14 @@
+<view class="total custom-class text-center df jc-around ai-center">
+  <view class="df-auto df flex-column ai-center total-left">
+    <view class="name">总资产</view>
+    <view class="amount">xxxxxxxxx</view>
+  </view>
+  <view class="df-auto df flex-column ai-center total-right">
+    <view class="name">昨日收益</view>
+    <!-- <view class="amount">xxxxxxxxx</view> -->
+    <view class="amount">
+      <text class="unit">¥</text>
+      <text class="num">4.34</text>
+    </view>
+  </view>
+</view>

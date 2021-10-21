@@ -1,0 +1,4 @@
+<view class="index-title-box custom-class df jc-between ai-center">
+  <text class="index-title">{{title}}</text>
+  <z-more wx:if="{{url}}" url="{{url}}" />
+</view>

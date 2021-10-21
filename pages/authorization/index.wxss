@@ -1,8 +1,20 @@
+page {
+  padding-bottom: 0;
+}
+.profit-bg {
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+}
+.custom-back .weui-icon {
+  background-color: #0A3FFF !important;
+}
 .login {
   padding: 20rpx 36rpx;
 }
 .login .box {
-  padding: 0 64rpx;
+  padding: 0 32rpx;
   margin-top: 358rpx;
 }
 .login .tip {
@@ -25,4 +37,14 @@
 }
 .button-hover {
   opacity: 0.8;
+}
+.bg-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.bg-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }

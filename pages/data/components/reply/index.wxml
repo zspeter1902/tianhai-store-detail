@@ -26,7 +26,7 @@
 </view>
 <button class="btn" hover-class="button-hover" bind:tap="openReply">设置评价回复内容</button>
 <!-- 查询差评信息弹出框 -->
-<wxs src="../../../../utils/filter.wxs" module="time"></wxs>
+<wxs src="../../../../utils/wxs/filter.wxs" module="time"></wxs>
 <mp-dialog ext-class="dialog" show="{{isSearchShow}}">
   <image class="dialog-bg" src="/images/dialog_bg2.png" mode="aspectFill"/>
   <view class="dialog-container">

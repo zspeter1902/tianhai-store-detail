@@ -1,0 +1,4 @@
+<!-- pages/list/components/custom/index.wxml -->
+<view class="custom-view custom-class" style="padding-top: calc({{statusBarHeight + capsuleHeight}}px); {{background ? 'background-image: url('+background+')' : ''}}">
+  <slot />
+</view>

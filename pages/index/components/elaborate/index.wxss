@@ -1,0 +1,38 @@
+.box {
+  height: 320rpx;
+}
+.vip {
+  width: 240rpx;
+  margin-right: 20rpx;
+  padding: 30rpx 40rpx;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.more {
+  width: 104rpx;
+  height: 36rpx;
+  text-align: center;
+  line-height: 36rpx;
+  font-size: 24rpx !important;
+  border-radius: 20rpx;
+  text-indent: 10rpx;
+  box-sizing: border-box;
+}
+.name {
+  margin-bottom: 10rpx;
+  font-size: 36rpx;
+  font-weight: 500;
+  line-height: 54rpx;
+  color: #0A3FFF;
+}
+.vip .name {
+  color: #fff;
+}
+.question, .news {
+  height: 150rpx;
+  padding: 20rpx 30rpx;
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

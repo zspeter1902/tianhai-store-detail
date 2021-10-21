@@ -1,0 +1,17 @@
+  <scroll-view class="hot-scroll" scroll-x enable-flex  fast-deceleration="{{true}}">
+    <view class="df hot-box" style="background-image: url(/images/index_bg_hot.png)">
+      <navigator class="item df-fixed" url="">
+        <view class="name">外卖运营的重要性</view>
+        <view class="des">店铺评分是每一位外卖商家都很关注的内容，湿答答…</view>
+      </navigator>
+      <navigator class="item df-fixed" url="">
+        <view class="name">外卖运营的重要性</view>
+        <view class="des">店铺评分是每一位外卖商家都很关注的内容，湿答答…</view>
+      </navigator>
+      <navigator class="item df-fixed" url="">
+        <view class="name">外卖运营的重要性</view>
+        <view class="des">店铺评分是每一位外卖商家都很关注的内容，湿答答…</view>
+      </navigator>
+      <view class="df-fixed" style="width: 1rpx"></view>
+  </view>
+  </scroll-view>

@@ -1,8 +1,9 @@
 @import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 page{
   position: relative;
-  padding-bottom: 136rpx;
-  background-color: #f2f2f2;
+  padding-bottom: calc(104rpx + env(safe-area-inset-bottom));
+  background-color: #fff;
+  /* font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif; */
 }
 .sk{
   height: 100%;
@@ -119,7 +120,7 @@ image {
 .ac-center{
   align-content: center
 }
-.fw-wrap{
+.flex-wrap{
   flex-wrap: wrap;
   -webkit-flex-wrap:wrap;
 }

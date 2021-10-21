@@ -1,0 +1,68 @@
+.profit {
+  margin-top: 35rpx;
+}
+.userinfo .avatar{
+  display: inline-block;
+  width: 142rpx;
+  height: 142rpx;
+  margin-right: 38rpx;
+  border-radius: 72rpx;
+  vertical-align: top;
+  overflow: hidden;
+}
+.userinfo .name{
+  color: #ffffff;
+  font-size: 40rpx;
+  line-height: 60rpx;
+}
+.userinfo .time {
+  font-size: 24rpx;
+  line-height: 42rpx;
+  color: #FFFFFF;
+}
+.userinfo .vip {
+  align-self: flex-end;
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 42rpx;
+}
+.userinfo .vip::after {
+  content: '';
+  position: relative;
+  top: -2rpx;
+  display: inline-block;
+  margin-left: 16rpx;
+  border-bottom: 12rpx solid transparent;
+  border-top: 12rpx solid transparent;
+  border-right: 12rpx solid transparent;
+  border-left: 12rpx solid #fff;
+  vertical-align: middle;
+}
+.userinfo .renew-btn {
+  display: inline-block;
+  padding: 0;
+  margin-top: 55rpx;
+  width: 180rpx;
+  font-size: 24rpx;
+  line-height: 60rpx;
+  font-family: '黑体';
+  border-radius: 30rpx;
+  color: #4037CF;
+  vertical-align: top;
+}
+.login-btn{
+  width: calc(100% - 60rpx) !important;
+  padding: 0;
+  margin: 0 !important;
+  font-size: 40rpx;
+  line-height: 80rpx;
+  font-family: '黑体';
+  font-weight: normal;
+  color: #ffffff;
+  text-align: left;
+  border-radius: 8rpx;
+  background-color: transparent
+}
+.login-btn::after{
+  display: none;
+}

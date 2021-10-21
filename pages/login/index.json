@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "我的",
-  "usingComponents": {
-    "mp-loading": "weui-miniprogram/loading/loading"
-  }
-}

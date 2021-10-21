@@ -64,11 +64,11 @@ const add = (num1, num2) => {
  */
  const debounce = (func, wait = 100) => {
   let timer;
-  return () => {
+  return (arg) => {
     clearTimeout(timer);
     const context = this;
     timer = setTimeout(() => {
-      func.call(context, arguments)
+      func.call(context, arg)
     }, wait)
   }
 }
@@ -80,11 +80,11 @@ const add = (num1, num2) => {
  */
 const throttle = (func, wait = 300) => {
   let lastTime = 0;
-  return () => {
+  return (args) => {
     const context = this;
     const currentTime = +new Date();
     if(currentTime - lastTime > wait) {
-      func.call(context, arguments);
+      func.call(context, args);
       lastTime = +new Date();
     }
   };

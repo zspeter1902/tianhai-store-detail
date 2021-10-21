@@ -1,0 +1,39 @@
+.total {
+  position: relative;
+  padding: 36rpx 0;
+  background: radial-gradient(circle at center top, transparent 40rpx,  #fff 0) top center / 100% 50% no-repeat,
+  radial-gradient(circle at center bottom, transparent 40rpx,  #fff 0) bottom center / 100% 50% no-repeat;
+  filter: drop-shadow(0 4rpx 24rpx rgba(0, 0, 0, 0.08));
+  z-index: 3;
+}
+.total::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46rpx;
+  bottom: 46rpx;
+  width: 2rpx;
+  background-image: linear-gradient(to bottom, transparent, #E4E4E4 20rpx, transparent);
+  background-size: 2rpx 28rpx;
+}
+.total .name{
+  font-size: 28rpx;
+  color: #444444;
+  line-height: 42rpx;
+}
+.total .amount{
+  margin-top: 26rpx;
+  font-size: 30rpx;
+  color: #FE7D2C;
+  line-height: 45rpx;
+  text-shadow: 0rpx 4rpx 24rpx rgba(254, 125, 44, 0.3);
+}
+.total .amount .num {
+  font-size: 56rpx;
+}
+.total .total-left {
+  text-indent: -40rpx;
+}
+.total .total-right {
+  text-indent: 40rpx;
+}

@@ -1,0 +1,13 @@
+.more-link {
+  font-size: 28rpx;
+}
+.more-link::after {
+  content: '';
+  display: inline-block;
+  margin-left: 6rpx;
+  border-top: 8rpx solid transparent;
+  border-bottom: 8rpx solid transparent;
+  border-left: 10rpx solid var(--border-color);
+  border-right: 10rpx solid transparent;
+  vertical-align: middle;
+}

@@ -1,6 +1,10 @@
 <!-- pages/list/components/custom/index.wxml -->
-<cover-view class='commonHead custom-class' style="padding-top: {{statusBarHeight + 5}}px">
-  <cover-view class='commonHead_content'>
-    <cover-image class="commonHead_img" src="../../images/logo.png" />
-  </cover-view>
-</cover-view>
+<view class='commonHead custom-class' style="padding-top: {{statusBarHeight}}px;padding-bottom: 5px;background-color: {{darkMode ? 'white' : ''}}">
+  <view hidden="{{back}}" class='commonHead_left' style="width: {{capsuleWidth}}px;line-height: {{capsuleHeight}}px" bind:tap="goBack">
+    <mp-icon type="field" icon="back" color="{{darkMode ? 'black' : 'white'}}" size="{{statusBarHeight / 1.8}}" />
+  </view>
+  <view class='commonHead_content' style="max-height: {{capsuleHeight}}px; line-height: {{capsuleHeight}}px; color: {{darkMode ? 'black' : 'white'}}; font-size: {{back ? '44rpx' : '48rpx'}}">
+    {{title}}
+  </view>
+  <view class="commonHead_right" style="width: {{capsuleWidth}}px"></view>
+</view>

@@ -1,0 +1,23 @@
+var format = function(text){
+    if(!text){
+        return
+    }
+    var reg = getRegExp('\\\\n','g')
+    return text.replace(reg, '\n\t\t\t\t\t')
+}
+var limit = function(array, length){
+    return array.slice(0, length)
+}
+var interceptTime = function(time) {
+  return time.slice(5, time.length-3)
+}
+var toDecimal = function(value, limit) {
+  var num = parseFloat(value).toFixed(limit)
+  return Number(num)
+}
+module.exports = {
+    format:format,
+    limit:limit,
+    interceptTime: interceptTime,
+    toDecimal: toDecimal
+}
